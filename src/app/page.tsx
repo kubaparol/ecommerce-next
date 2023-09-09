@@ -1,9 +1,12 @@
+import Link from "next/link";
+import { buttonVariants } from "@/components/base/button";
+
 export default function Home() {
 	return (
-		<main className="flex min-h-screen flex-col items-center justify-between p-24">
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa dignissimos sed itaque
-			accusamus, iste molestias doloribus voluptate aliquid recusandae nisi hic at veritatis,
-			laborum dicta aliquam placeat pariatur quidem? Reprehenderit.
+		<main className="grid h-screen place-items-center bg-slate-400">
+			<Link href="/products" className={buttonVariants({ variant: "default" })}>
+				Go to products
+			</Link>
 		</main>
 	);
 }
