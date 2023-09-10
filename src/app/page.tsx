@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { buttonVariants } from "@/components/base/button";
+import { buttonVariants } from "@/components/base/Button/Button";
 
 export default function Home() {
 	return (
-		<main className="grid h-screen place-items-center bg-slate-400">
+		<main className="h- grid place-items-center">
 			<Link href="/products" className={buttonVariants({ variant: "default" })}>
 				Go to products
 			</Link>

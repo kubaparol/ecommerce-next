@@ -10,7 +10,10 @@ export const ProductsListTemplate: FC<ProductsListTemplateProps> = (props) => {
 
 	return (
 		<section>
-			<ul data-testid="products-list" className="flex flex-wrap gap-6">
+			<ul
+				data-testid="products-list"
+				className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6"
+			>
 				{products.map((product) => (
 					<li key={product.id}>
 						<ProductItem {...product} />
