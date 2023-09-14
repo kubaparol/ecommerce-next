@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 
 import "@/styles/globals.css";
 import { DefaultLayout } from "@/components/layouts/Default/DefaultLayout";
+import { ThemeProvider } from "@/components/themes/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +16,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="pl">
 			<body className={inter.className}>
-				<DefaultLayout>{children}</DefaultLayout>
+				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+					<DefaultLayout>{children}</DefaultLayout>
+				</ThemeProvider>
 			</body>
 		</html>
 	);

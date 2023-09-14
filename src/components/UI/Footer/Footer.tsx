@@ -5,9 +5,5 @@ export interface FooterProps {}
 export const Footer: FC<FooterProps> = (props) => {
 	const {} = props;
 
-	return (
-		<footer className="bg-orange-200 p-4 text-center">
-			<div className="mx-auto max-w-[1400px]">Footer</div>
-		</footer>
-	);
+	return <footer className="border-t border-t-slate-600"></footer>;
 };
