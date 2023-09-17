@@ -8,10 +8,10 @@ export const DefaultLayout: FC<DefaultLayoutProps> = (props) => {
 	const { children } = props;
 
 	return (
-		<div>
+		<div className="">
 			<Header />
-			<main className=" mx-auto min-h-[calc(100vh_-_112px)] max-w-[1400px] bg-zinc-100 p-4">
-				{children}
+			<main className="bg-zinc-100 p-4">
+				<div className="mx-auto min-h-[calc(100vh_-_112px)] max-w-[1400px]">{children}</div>
 			</main>
 			<Footer />
 		</div>

@@ -1,5 +1,8 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
+import Link from "next/link";
 import { ProductItem, type ProductItemProps } from "@/components/UI/ProductItem/ProductItem";
+import { ProjectUrls } from "@/const";
+import { Pagination } from "@/components/UI/Pagination/Pagination";
 
 export interface ProductsListTemplateProps extends ComponentPropsWithoutRef<"section"> {
 	products: ProductItemProps[];
@@ -16,10 +19,14 @@ export const ProductsListTemplate: FC<ProductsListTemplateProps> = (props) => {
 			>
 				{products.map((product) => (
 					<li key={product.id}>
-						<ProductItem {...product} />
+						<Link href={`${ProjectUrls.Product}/${product.id}`}>
+							<ProductItem {...product} />
+						</Link>
 					</li>
 				))}
 			</ul>
+
+			<Pagination numOfPages={5} className="mt-12 grid place-items-center" />
 		</section>
 	);
 };

@@ -8,13 +8,15 @@ import { type Route } from "next";
 
 interface ActiveLinkProps extends LinkProps<Route> {
 	label: string;
+	exact?: boolean;
 }
 
 export const ActiveLink: FC<ActiveLinkProps> = (props) => {
-	const { label, href } = props;
+	const { label, exact, href } = props;
 
 	const pathname = usePathname();
-	const isActive = pathname === href;
+
+	const isActive = exact ? pathname === href : pathname.startsWith(href as string);
 
 	return (
 		<Link
