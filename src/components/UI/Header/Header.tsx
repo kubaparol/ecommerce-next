@@ -14,7 +14,7 @@ export const Header: FC<HeaderProps> = (props) => {
 	const { menuLinks } = useMenuLinks();
 
 	return (
-		<header className="border-b border-b-slate-600 px-6 py-3">
+		<header className="border-b border-b-slate-600 px-6 py-3" aria-label="navigation">
 			<div className="mx-auto flex max-w-[1400px] items-center justify-between">
 				<Link href={ProjectUrls.Home} className="mr-4 w-full max-w-[100px] md:max-w-[140px]">
 					<Brand />
