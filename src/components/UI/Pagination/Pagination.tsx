@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import { type ComponentPropsWithoutRef, type FC } from "react";
 import { type Route } from "next";
 import { ActiveLink } from "../ActiveLink/ActiveLink";
@@ -9,14 +8,10 @@ export interface PaginationProps extends ComponentPropsWithoutRef<"ul"> {
 }
 
 export const Pagination: FC<PaginationProps> = (props) => {
-	const { numOfPages, className, ...rest } = props;
+	const { numOfPages, ...rest } = props;
 
 	return (
-		<ul
-			{...rest}
-			aria-label="pagination"
-			className={clsx("mt-4 flex items-center justify-center gap-8", className)}
-		>
+		<ul {...rest} aria-label="pagination" className="mt-4 flex items-center justify-center gap-8">
 			{Array.from({ length: numOfPages }, (_, i) => i + 1).map((page) => (
 				<li key={page}>
 					<ActiveLink href={`${ProjectUrls.Products}/${page}` as Route} label={page.toString()} />
