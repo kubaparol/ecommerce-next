@@ -16,6 +16,7 @@
 		"allowUnreachableCode": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
+		"noUncheckedIndexedAccess": true,
 		"jsx": "preserve",
 		"incremental": true,
 		"plugins": [
@@ -27,6 +28,6 @@
 			"@/*": ["./src/*"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".graphqlrc.ts"],
 	"exclude": ["node_modules"]
 }
