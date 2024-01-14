@@ -6,10 +6,10 @@ loadEnvConfig(process.cwd());
 const config: CodegenConfig = {
 	overwrite: true,
 	schema: process.env.GRAPHQL_URL,
-	documents: "src/graphql/*.graphql",
+	documents: "src/services/api/graphql/**/*.graphql",
 	ignoreNoDocuments: true,
 	generates: {
-		"src/gql/": {
+		"src/services/api/graphql/configs/": {
 			preset: "client",
 			presetConfig: {
 				fragmentMasking: { unmaskFunctionName: "getFragmentData" },

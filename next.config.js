@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	images: {
-		domains: ["naszsklep-api.vercel.app"],
+		domains: ["media.graphassets.com"],
 	},
 	experimental: {
 		typedRoutes: true,
@@ -13,6 +13,15 @@ const nextConfig = {
 		});
 
 		return config;
+	},
+	redirects: async () => {
+		return [
+			{
+				source: "/products",
+				destination: "/products/1",
+				permanent: false,
+			},
+		];
 	},
 };
 

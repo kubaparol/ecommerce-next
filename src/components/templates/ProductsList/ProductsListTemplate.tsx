@@ -1,15 +1,17 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
 import Link from "next/link";
-import { ProductItem, type ProductItemProps } from "@/components/UI/ProductItem/ProductItem";
+import { ProductItem } from "@/components/UI/ProductItem/ProductItem";
 import { ProjectUrls } from "@/const";
 import { Pagination } from "@/components/UI/Pagination/Pagination";
+import { ProductsGetListQuery } from "@/services/api/graphql/configs/graphql";
 
 export interface ProductsListTemplateProps extends ComponentPropsWithoutRef<"section"> {
-	products: ProductItemProps[];
+	products: ProductsGetListQuery["products"];
+	numOfPages: number;
 }
 
 export const ProductsListTemplate: FC<ProductsListTemplateProps> = (props) => {
-	const { products } = props;
+	const { products, numOfPages } = props;
 
 	return (
 		<section>
@@ -20,13 +22,13 @@ export const ProductsListTemplate: FC<ProductsListTemplateProps> = (props) => {
 				{products.map((product) => (
 					<li key={product.id}>
 						<Link href={`${ProjectUrls.Product}/${product.id}`}>
-							<ProductItem {...product} />
+							<ProductItem product={product} />
 						</Link>
 					</li>
 				))}
 			</ul>
 
-			<Pagination numOfPages={5} className="mt-12 grid place-items-center" />
+			<Pagination numOfPages={numOfPages} className="mt-12 grid place-items-center" />
 		</section>
 	);
 };
