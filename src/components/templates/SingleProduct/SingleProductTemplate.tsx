@@ -1,8 +1,8 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
 import Image from "next/image";
-import { Typography } from "@/components/base/Typography/Typography";
-import { Button } from "@/components/base/Button/Button";
+import { ShoppingBasket } from "lucide-react";
 import { type ProductGetByIdQuery } from "@/services/api/graphql/configs/graphql";
+import { formatPrice } from "@/utils";
 
 export interface SingleProductTemplateProps extends ComponentPropsWithoutRef<"section"> {
 	product: ProductGetByIdQuery["product"];
@@ -15,9 +15,8 @@ export const SingleProductTemplate: FC<SingleProductTemplateProps> = (props) => 
 
 	return (
 		<section className="py-4">
-			<header>
-				<Typography as="h1" styling="h-24" weight="medium" text={product.name} />
-				{/* <Typography as="h2" styling="p-16" text={product.category} /> */}
+			<header className="border-b pb-4">
+				<h2 className="text-3xl font-bold text-gray-800">{product.name}</h2>
 			</header>
 
 			<div className="grid grid-cols-1 gap-12 py-12 md:grid-cols-2">
@@ -31,14 +30,14 @@ export const SingleProductTemplate: FC<SingleProductTemplateProps> = (props) => 
 					/>
 				</div>
 
-				<div className="grid grid-rows-3 justify-between gap-8">
-					<Typography as="p" styling="p-16" text={product.description} />
+				<div className="grid gap-8">
+					<p className="text-gray-600">{product.description}</p>
+					<p className="text-lg font-semibold">{formatPrice(product.price)}</p>
 
-					<Typography as="p" styling="h-24" text={product.price.toString()} />
-
-					<Button disabled className="w-fit">
+					<button className="btn btn-primary w-fit">
+						<ShoppingBasket />
 						Dodaj do koszyka
-					</Button>
+					</button>
 				</div>
 			</div>
 		</section>

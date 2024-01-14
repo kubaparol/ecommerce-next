@@ -10,8 +10,8 @@ interface Link {
 export const useMenuLinks = () => {
 	const menuLinks = useMemo<Link[]>(() => {
 		return [
-			{ label: "Home", href: ProjectUrls.Home },
-			{ label: "All", href: ProjectUrls.Products },
+			{ label: "Home", href: ProjectUrls.home },
+			{ label: "All", href: ProjectUrls.products },
 		];
 	}, []);
 

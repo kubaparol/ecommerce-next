@@ -1,34 +1,30 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
-import Link from "next/link";
 import { ProductItem } from "@/components/UI/ProductItem/ProductItem";
-import { ProjectUrls } from "@/const";
 import { Pagination } from "@/components/UI/Pagination/Pagination";
 import { type ProductsGetListQuery } from "@/services/api/graphql/configs/graphql";
 
 export interface ProductsListTemplateProps extends ComponentPropsWithoutRef<"section"> {
 	products: ProductsGetListQuery["products"];
+	page: number;
 	numOfPages: number;
 }
 
 export const ProductsListTemplate: FC<ProductsListTemplateProps> = (props) => {
-	const { products, numOfPages } = props;
+	const { products, page, numOfPages } = props;
 
 	return (
-		<section>
-			<ul
-				data-testid="products-list"
-				className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6"
-			>
+		<section className="grid gap-20">
+			<ul className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-8">
 				{products.map((product) => (
 					<li key={product.id}>
-						<Link href={`${ProjectUrls.Product}/${product.id}`}>
-							<ProductItem product={product} />
-						</Link>
+						<ProductItem product={product} />
 					</li>
 				))}
 			</ul>
 
-			<Pagination numOfPages={numOfPages} className="mt-12 grid place-items-center" />
+			<footer className="flex justify-center">
+				<Pagination current={page} totalCount={numOfPages} />
+			</footer>
 		</section>
 	);
 };

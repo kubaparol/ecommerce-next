@@ -1,9 +1,10 @@
 import { type FC } from "react";
-import Image from "next/image";
-import { AspectRatio } from "@/components/base/AspectRatio/AspectRatio";
-import { Typography } from "@/components/base/Typography/Typography";
-import { Card, CardContent, CardHeader } from "@/components/base/Card/Card";
+import NextImage from "next/image";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { type ProductsGetListQuery } from "@/services/api/graphql/configs/graphql";
+import { formatPrice } from "@/utils";
+import { ProjectUrls } from "@/const";
 
 export interface ProductItemProps {
 	product: ProductsGetListQuery["products"][number];
@@ -11,26 +12,31 @@ export interface ProductItemProps {
 
 export const ProductItem: FC<ProductItemProps> = (props) => {
 	const { product } = props;
-	const { name, price, images } = product;
+	const { id, name, price, images } = product;
 
 	return (
-		<Card className="transition hover:scale-105 hover:shadow-xl">
-			<CardHeader>
-				<AspectRatio ratio={16 / 9}>
-					<Image
-						src={images[0]?.url || ""}
-						alt={name}
-						className="rounded-lg object-contain"
-						fill
-						sizes="100%"
-					/>
-				</AspectRatio>
-			</CardHeader>
+		<div className="card bg-base-100 h-full shadow-xl">
+			<figure className="relative m-6 aspect-square">
+				<NextImage
+					src={images[0]?.url || ""}
+					alt={name}
+					layout="fill"
+					objectFit="contain"
+					priority
+				/>
+			</figure>
 
-			<CardContent>
-				<Typography as="h3" text={name} className="mb-2" styling="p-14" />
-				<Typography as="p" text={price.toString()} styling="p-16" weight="medium" />
-			</CardContent>
-		</Card>
+			<div className="card-body grid gap-8">
+				<h2 className="card-title">{name}</h2>
+
+				<div className="card-actions items-center justify-between">
+					<p className="text-lg">{formatPrice(price)}</p>
+					<Link href={`${ProjectUrls.product}/${id}`} className="btn btn-primary">
+						Zobacz
+						<ArrowRight />
+					</Link>
+				</div>
+			</div>
+		</div>
 	);
 };

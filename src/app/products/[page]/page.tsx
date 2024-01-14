@@ -16,7 +16,8 @@ export async function generateStaticParams() {
 }
 
 export default async function ProductsPage({ params }: { params: { page: string } }) {
-	const skip = calculateSkip(Number(params.page), DATA_PER_PAGE);
+	const page = Number(params.page);
+	const skip = calculateSkip(page, DATA_PER_PAGE);
 
 	const { products } = await graphqlFetcher(ProductsGetListDocument, {
 		first: DATA_PER_PAGE,
@@ -27,5 +28,5 @@ export default async function ProductsPage({ params }: { params: { page: string 
 	const count = productsConnection.aggregate.count;
 	const numOfPages = calculateNumOfPages(count, DATA_PER_PAGE);
 
-	return <ProductsListTemplate products={products} numOfPages={numOfPages} />;
+	return <ProductsListTemplate products={products} numOfPages={numOfPages} page={page} />;
 }

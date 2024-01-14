@@ -1,26 +1,28 @@
 import { type FC } from "react";
 
 import Link from "next/link";
-import Brand from "../../../../public/vercel.svg";
-import { ActiveLink } from "../ActiveLink/ActiveLink";
+import { Bird } from "lucide-react";
 import { ProjectUrls } from "@/const";
-import { useMenuLinks } from "@/hooks/use-menu-links";
 
 export interface HeaderProps {}
 
 export const Header: FC<HeaderProps> = (props) => {
 	const {} = props;
 
-	const { menuLinks } = useMenuLinks();
+	// const { menuLinks } = useMenuLinks();
 
 	return (
-		<header className="border-b border-b-slate-600 px-6 py-3">
+		<header className="bg-base-200 px-6 py-4">
 			<div className="mx-auto flex max-w-[1400px] items-center justify-between">
-				<Link href={ProjectUrls.Home} className="mr-4 w-full max-w-[100px] md:max-w-[140px]">
-					<Brand />
+				<Link
+					href={ProjectUrls.home}
+					className="flex h-12 w-auto items-center justify-center gap-3 rounded-full bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-400 px-4 duration-300"
+				>
+					<Bird />
+					Logo
 				</Link>
 
-				<nav>
+				{/* <nav>
 					<ul className="flex gap-10">
 						{menuLinks.map((link) => (
 							<li key={link.href}>
@@ -28,7 +30,7 @@ export const Header: FC<HeaderProps> = (props) => {
 							</li>
 						))}
 					</ul>
-				</nav>
+				</nav> */}
 			</div>
 		</header>
 	);

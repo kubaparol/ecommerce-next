@@ -1,10 +1,10 @@
 "use client";
 
-import clsx from "clsx";
 import Link, { type LinkProps } from "next/link";
 import { type FC } from "react";
 import { usePathname } from "next/navigation";
 import { type Route } from "next";
+import { cn } from "@/utils";
 
 interface ActiveLinkProps extends LinkProps<Route> {
 	label: string;
@@ -21,7 +21,7 @@ export const ActiveLink: FC<ActiveLinkProps> = (props) => {
 	return (
 		<Link
 			href={href}
-			className={clsx(
+			className={cn(
 				"transition",
 				!isActive && "hover:opacity-50",
 				isActive && "cursor-default border-b-2 border-b-zinc-500",

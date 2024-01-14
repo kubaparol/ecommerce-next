@@ -1,20 +1,26 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
-import { type Route } from "next";
-import { ActiveLink } from "../ActiveLink/ActiveLink";
+import Link from "next/link";
 import { ProjectUrls } from "@/const";
+import { cn } from "@/utils";
 
 export interface PaginationProps extends ComponentPropsWithoutRef<"ul"> {
-	numOfPages: number;
+	current: number;
+	totalCount: number;
 }
 
 export const Pagination: FC<PaginationProps> = (props) => {
-	const { numOfPages, ...rest } = props;
+	const { current, totalCount, className, ...rest } = props;
 
 	return (
-		<ul {...rest} aria-label="pagination" className="mt-4 flex items-center justify-center gap-8">
-			{Array.from({ length: numOfPages }, (_, i) => i + 1).map((page) => (
+		<ul {...rest} className={cn("join", className)}>
+			{Array.from({ length: totalCount }, (_, i) => i + 1).map((page) => (
 				<li key={page}>
-					<ActiveLink href={`${ProjectUrls.Products}/${page}` as Route} label={page.toString()} />
+					<Link
+						href={`${ProjectUrls.products}/${page}`}
+						className={cn("join-item btn", current === page && "btn-active")}
+					>
+						{page}
+					</Link>
 				</li>
 			))}
 		</ul>
