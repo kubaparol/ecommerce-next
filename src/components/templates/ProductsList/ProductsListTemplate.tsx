@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ProductItem } from "@/components/UI/ProductItem/ProductItem";
 import { ProjectUrls } from "@/const";
 import { Pagination } from "@/components/UI/Pagination/Pagination";
-import { ProductsGetListQuery } from "@/services/api/graphql/configs/graphql";
+import { type ProductsGetListQuery } from "@/services/api/graphql/configs/graphql";
 
 export interface ProductsListTemplateProps extends ComponentPropsWithoutRef<"section"> {
 	products: ProductsGetListQuery["products"];

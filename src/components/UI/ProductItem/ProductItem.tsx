@@ -3,7 +3,7 @@ import Image from "next/image";
 import { AspectRatio } from "@/components/base/AspectRatio/AspectRatio";
 import { Typography } from "@/components/base/Typography/Typography";
 import { Card, CardContent, CardHeader } from "@/components/base/Card/Card";
-import { ProductsGetListQuery } from "@/services/api/graphql/configs/graphql";
+import { type ProductsGetListQuery } from "@/services/api/graphql/configs/graphql";
 
 export interface ProductItemProps {
 	product: ProductsGetListQuery["products"][number];

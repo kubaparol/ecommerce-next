@@ -1,36 +1,39 @@
 import { type Metadata } from "next";
-import { type ProductItemProps } from "@/components/UI/ProductItem/ProductItem";
 import { SingleProductTemplate } from "@/components/templates/SingleProduct/SingleProductTemplate";
+import { ProductGetByIdDocument } from "@/services/api/graphql/configs/graphql";
+import { graphqlFetcher } from "@/services";
 
 export const generateMetadata = async ({
 	params,
 }: {
 	params: { id: string };
 }): Promise<Metadata> => {
-	const res = await fetch("https://naszsklep-api.vercel.app/api/products/" + params.id);
-	const product = (await res.json()) as ProductItemProps;
+	const { product } = await graphqlFetcher(ProductGetByIdDocument, {
+		id: params.id,
+	});
 
 	return {
-		title: product.title,
-		description: product.description,
+		title: product?.name || "",
+		description: product?.description || "",
 		openGraph: {
-			title: product.title,
-			description: product.description,
-			images: [
-				{
-					url: product.image,
-					width: 800,
-					height: 600,
-					alt: product.title,
-				},
-			],
+			title: product?.name || "",
+			description: product?.description || "",
+			// images: [
+			// 	{
+			// 		url: product.image,
+			// 		width: 800,
+			// 		height: 600,
+			// 		alt: product.title,
+			// 	},
+			// ],
 		},
 	};
 };
 
 export default async function ProductPage({ params }: { params: { id: string } }) {
-	const productResponse = await fetch(`https://naszsklep-api.vercel.app/api/products/${params.id}`);
-	const product = (await productResponse.json()) as ProductItemProps;
+	const { product } = await graphqlFetcher(ProductGetByIdDocument, {
+		id: params.id,
+	});
 
 	return <SingleProductTemplate product={product} />;
 }
