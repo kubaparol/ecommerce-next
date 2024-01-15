@@ -3,13 +3,14 @@ import { type FC } from "react";
 import Link from "next/link";
 import { Bird } from "lucide-react";
 import { ProjectUrls } from "@/const";
+import { type CategoriesGetListQuery } from "@/services/api/graphql/configs/graphql";
 
-export interface HeaderProps {}
+export interface HeaderProps {
+	categories: CategoriesGetListQuery["categories"];
+}
 
 export const Header: FC<HeaderProps> = (props) => {
-	const {} = props;
-
-	// const { menuLinks } = useMenuLinks();
+	const { categories } = props;
 
 	return (
 		<header className="bg-base-200 px-6 py-4">
@@ -22,15 +23,26 @@ export const Header: FC<HeaderProps> = (props) => {
 					Logo
 				</Link>
 
-				{/* <nav>
-					<ul className="flex gap-10">
-						{menuLinks.map((link) => (
-							<li key={link.href}>
-								<ActiveLink href={link.href} label={link.label} exact />
+				<div className="dropdown dropdown-end dropdown-bottom dropdown-hover">
+					<div tabIndex={0} role="button" className="btn m-1">
+						<p>Kategorie</p>
+					</div>
+					<ul
+						tabIndex={0}
+						className="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
+					>
+						<li>
+							<Link href={ProjectUrls.products}>Wszystkie produkty</Link>
+						</li>
+						{categories.map((category) => (
+							<li key={category.id}>
+								<Link href={ProjectUrls.category(category.name.toLowerCase())}>
+									{category.name}
+								</Link>
 							</li>
 						))}
 					</ul>
-				</nav> */}
+				</div>
 			</div>
 		</header>
 	);

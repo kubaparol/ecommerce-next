@@ -2,12 +2,12 @@ import { type FC } from "react";
 import NextImage from "next/image";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { type ProductsGetListQuery } from "@/services/api/graphql/configs/graphql";
 import { formatPrice } from "@/utils";
 import { ProjectUrls } from "@/const";
+import { type ProductListItemFragment } from "@/services/api/graphql/configs/graphql";
 
 export interface ProductItemProps {
-	product: ProductsGetListQuery["products"][number];
+	product: ProductListItemFragment;
 }
 
 export const ProductItem: FC<ProductItemProps> = (props) => {
@@ -15,14 +15,15 @@ export const ProductItem: FC<ProductItemProps> = (props) => {
 	const { id, name, price, images } = product;
 
 	return (
-		<div className="card bg-base-100 h-full shadow-xl">
+		<div className="card h-full bg-base-100 shadow-xl">
 			<figure className="relative m-6 aspect-square">
 				<NextImage
 					src={images[0]?.url || ""}
 					alt={name}
-					layout="fill"
-					objectFit="contain"
+					fill
 					priority
+					sizes="100%"
+					className="object-contain"
 				/>
 			</figure>
 

@@ -12,7 +12,7 @@ const config: CodegenConfig = {
 		"src/services/api/graphql/configs/": {
 			preset: "client",
 			presetConfig: {
-				fragmentMasking: { unmaskFunctionName: "getFragmentData" },
+				fragmentMasking: false,
 			},
 			config: {
 				useTypeImports: true,

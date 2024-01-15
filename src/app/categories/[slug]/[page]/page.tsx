@@ -1,8 +1,10 @@
+import { notFound } from "next/navigation";
 import { ProductsListTemplate } from "@/components/templates/ProductsList/ProductsListTemplate";
 import { DATA_PER_PAGE, ProjectUrls } from "@/const";
 import { graphqlFetcher } from "@/services";
 import {
-	ProductsGetListDocument,
+	ProductsCategoryGetQuantityDocument,
+	ProductsGetByCategoryDocument,
 	ProductsGetQuantityDocument,
 } from "@/services/api/graphql/configs/graphql";
 import { calculateNumOfPages, calculateSkip } from "@/utils";
@@ -15,25 +17,32 @@ export async function generateStaticParams() {
 	return pages.map((page) => ({ params: { page: page.toString() } }));
 }
 
-export default async function ProductsPage({ params }: { params: { page: string } }) {
+export default async function CategoryPage({ params }: { params: { page: string; slug: string } }) {
 	const page = Number(params.page);
 	const skip = calculateSkip(page, DATA_PER_PAGE);
 
-	const { products } = await graphqlFetcher(ProductsGetListDocument, {
+	const { categories } = await graphqlFetcher(ProductsGetByCategoryDocument, {
+		slug: params.slug,
 		first: DATA_PER_PAGE,
 		skip,
 	});
 
-	const { productsConnection } = await graphqlFetcher(ProductsGetQuantityDocument);
+	const { productsConnection } = await graphqlFetcher(ProductsCategoryGetQuantityDocument, {
+		slug: params.slug,
+	});
 	const count = productsConnection.aggregate.count;
 	const numOfPages = calculateNumOfPages(count, DATA_PER_PAGE);
 
+	if (!categories[0]) {
+		return notFound();
+	}
+
 	return (
 		<ProductsListTemplate
-			products={products}
+			products={categories[0].products}
 			numOfPages={numOfPages}
 			page={page}
-			baseUrl={ProjectUrls.products}
+			baseUrl={ProjectUrls.category(params.slug)}
 		/>
 	);
 }
