@@ -10766,7 +10766,21 @@ export type _SystemDateTimeFieldVariation =
 export type CategoriesGetListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CategoriesGetListQuery = { categories: Array<{ id: string, name: string }> };
+export type CategoriesGetListQuery = { categories: Array<{ id: string, slug: string, name: string }> };
+
+export type CollectionGetBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+  first?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type CollectionGetBySlugQuery = { collections: Array<{ name: string, image: { id: string, url: string }, products: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> }> }> };
+
+export type CollectionsGetListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CollectionsGetListQuery = { collections: Array<{ id: string, slug: string, name: string }> };
 
 export type ProductGetByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -10792,15 +10806,6 @@ export type ProductsGetByCategoryQueryVariables = Exact<{
 
 
 export type ProductsGetByCategoryQuery = { categories: Array<{ products: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> }> }> };
-
-export type ProductsGetByCategorySlugQueryVariables = Exact<{
-  slug: Scalars['String']['input'];
-  first?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-}>;
-
-
-export type ProductsGetByCategorySlugQuery = { products: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> }>, productsConnection: { aggregate: { count: number }, pageInfo: { pageSize?: number | null } } };
 
 export type ProductsGetListQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -10846,10 +10851,44 @@ export const CategoriesGetListDocument = new TypedDocumentString(`
     query CategoriesGetList {
   categories {
     id
+    slug
     name
   }
 }
     `) as unknown as TypedDocumentString<CategoriesGetListQuery, CategoriesGetListQueryVariables>;
+export const CollectionGetBySlugDocument = new TypedDocumentString(`
+    query CollectionGetBySlug($slug: String!, $first: Int, $skip: Int) {
+  collections(where: {slug: $slug}) {
+    name
+    image {
+      id
+      url
+    }
+    products(first: $first, skip: $skip) {
+      ...ProductListItem
+    }
+  }
+}
+    fragment ProductListItem on Product {
+  id
+  name
+  price
+  categories(first: 1) {
+    name
+  }
+  images(first: 1) {
+    url
+  }
+}`) as unknown as TypedDocumentString<CollectionGetBySlugQuery, CollectionGetBySlugQueryVariables>;
+export const CollectionsGetListDocument = new TypedDocumentString(`
+    query CollectionsGetList {
+  collections {
+    id
+    slug
+    name
+  }
+}
+    `) as unknown as TypedDocumentString<CollectionsGetListQuery, CollectionsGetListQueryVariables>;
 export const ProductGetByIdDocument = new TypedDocumentString(`
     query ProductGetById($id: ID!) {
   product(where: {id: $id}) {
@@ -10892,31 +10931,6 @@ export const ProductsGetByCategoryDocument = new TypedDocumentString(`
     url
   }
 }`) as unknown as TypedDocumentString<ProductsGetByCategoryQuery, ProductsGetByCategoryQueryVariables>;
-export const ProductsGetByCategorySlugDocument = new TypedDocumentString(`
-    query ProductsGetByCategorySlug($slug: String!, $first: Int, $skip: Int) {
-  products(first: $first, skip: $skip, where: {categories_some: {slug: $slug}}) {
-    ...ProductListItem
-  }
-  productsConnection(where: {categories_some: {slug: $slug}}) {
-    aggregate {
-      count
-    }
-    pageInfo {
-      pageSize
-    }
-  }
-}
-    fragment ProductListItem on Product {
-  id
-  name
-  price
-  categories(first: 1) {
-    name
-  }
-  images(first: 1) {
-    url
-  }
-}`) as unknown as TypedDocumentString<ProductsGetByCategorySlugQuery, ProductsGetByCategorySlugQueryVariables>;
 export const ProductsGetListDocument = new TypedDocumentString(`
     query ProductsGetList($first: Int, $skip: Int) {
   products(first: $first, skip: $skip) {

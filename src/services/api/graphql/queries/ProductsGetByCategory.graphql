@@ -5,17 +5,3 @@ query ProductsGetByCategory($slug: String!, $first: Int, $skip: Int) {
 		}
 	}
 }
-
-query ProductsGetByCategorySlug($slug: String!, $first: Int, $skip: Int) {
-	products(first: $first, skip: $skip, where: { categories_some: { slug: $slug } }) {
-		...ProductListItem
-	}
-	productsConnection(where: { categories_some: { slug: $slug } }) {
-		aggregate {
-			count
-		}
-		pageInfo {
-			pageSize
-		}
-	}
-}
