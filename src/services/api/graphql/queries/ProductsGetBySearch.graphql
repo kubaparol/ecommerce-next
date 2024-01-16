@@ -1,0 +1,5 @@
+query ProductsGetBySearch($search: String!, $first: Int, $skip: Int) {
+	products(where: { _search: $search }, first: $first, skip: $skip) {
+		...ProductListItem
+	}
+}

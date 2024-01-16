@@ -3,7 +3,7 @@ import { DATA_PER_PAGE, ProjectUrls } from "@/const";
 import { graphqlFetcher } from "@/services";
 import {
 	CollectionGetBySlugDocument,
-	ProductsCategoryGetQuantityDocument,
+	ProductsCollectionGetQuantityDocument,
 	ProductsGetQuantityDocument,
 } from "@/services/api/graphql/configs/graphql";
 import { calculateNumOfPages, calculateSkip } from "@/utils";
@@ -27,7 +27,7 @@ export default async function CategoryPage({ params }: { params: { page: string;
 		skip,
 	});
 
-	const { productsConnection } = await graphqlFetcher(ProductsCategoryGetQuantityDocument, {
+	const { productsConnection } = await graphqlFetcher(ProductsCollectionGetQuantityDocument, {
 		slug: params.slug,
 	});
 	const count = productsConnection.aggregate.count;

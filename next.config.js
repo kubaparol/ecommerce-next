@@ -31,6 +31,17 @@ const nextConfig = {
 				destination: "/collection/:slug/1",
 				permanent: false,
 			},
+			{
+				source: "/search",
+				destination: "/search/1",
+				permanent: false,
+				has: [
+					{
+						type: "query",
+						key: "query",
+					},
+				],
+			},
 		];
 	},
 };

@@ -10798,6 +10798,13 @@ export type ProductsCategoryGetQuantityQueryVariables = Exact<{
 
 export type ProductsCategoryGetQuantityQuery = { productsConnection: { aggregate: { count: number } } };
 
+export type ProductsCollectionGetQuantityQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type ProductsCollectionGetQuantityQuery = { productsConnection: { aggregate: { count: number } } };
+
 export type ProductsGetByCategoryQueryVariables = Exact<{
   slug: Scalars['String']['input'];
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -10806,6 +10813,15 @@ export type ProductsGetByCategoryQueryVariables = Exact<{
 
 
 export type ProductsGetByCategoryQuery = { categories: Array<{ products: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> }> }> };
+
+export type ProductsGetBySearchQueryVariables = Exact<{
+  search: Scalars['String']['input'];
+  first?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type ProductsGetBySearchQuery = { products: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> }> };
 
 export type ProductsGetListQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -10819,6 +10835,13 @@ export type ProductsGetQuantityQueryVariables = Exact<{ [key: string]: never; }>
 
 
 export type ProductsGetQuantityQuery = { productsConnection: { aggregate: { count: number } } };
+
+export type ProductsSearchGetQuantityQueryVariables = Exact<{
+  search?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type ProductsSearchGetQuantityQuery = { productsConnection: { aggregate: { count: number } } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -10912,6 +10935,15 @@ export const ProductsCategoryGetQuantityDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ProductsCategoryGetQuantityQuery, ProductsCategoryGetQuantityQueryVariables>;
+export const ProductsCollectionGetQuantityDocument = new TypedDocumentString(`
+    query ProductsCollectionGetQuantity($slug: String) {
+  productsConnection(where: {collections_some: {slug: $slug}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ProductsCollectionGetQuantityQuery, ProductsCollectionGetQuantityQueryVariables>;
 export const ProductsGetByCategoryDocument = new TypedDocumentString(`
     query ProductsGetByCategory($slug: String!, $first: Int, $skip: Int) {
   categories(where: {slug: $slug}) {
@@ -10931,6 +10963,23 @@ export const ProductsGetByCategoryDocument = new TypedDocumentString(`
     url
   }
 }`) as unknown as TypedDocumentString<ProductsGetByCategoryQuery, ProductsGetByCategoryQueryVariables>;
+export const ProductsGetBySearchDocument = new TypedDocumentString(`
+    query ProductsGetBySearch($search: String!, $first: Int, $skip: Int) {
+  products(where: {_search: $search}, first: $first, skip: $skip) {
+    ...ProductListItem
+  }
+}
+    fragment ProductListItem on Product {
+  id
+  name
+  price
+  categories(first: 1) {
+    name
+  }
+  images(first: 1) {
+    url
+  }
+}`) as unknown as TypedDocumentString<ProductsGetBySearchQuery, ProductsGetBySearchQueryVariables>;
 export const ProductsGetListDocument = new TypedDocumentString(`
     query ProductsGetList($first: Int, $skip: Int) {
   products(first: $first, skip: $skip) {
@@ -10957,3 +11006,12 @@ export const ProductsGetQuantityDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ProductsGetQuantityQuery, ProductsGetQuantityQueryVariables>;
+export const ProductsSearchGetQuantityDocument = new TypedDocumentString(`
+    query ProductsSearchGetQuantity($search: String) {
+  productsConnection(where: {_search: $search}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ProductsSearchGetQuantityQuery, ProductsSearchGetQuantityQueryVariables>;

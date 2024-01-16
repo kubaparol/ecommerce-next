@@ -20,9 +20,12 @@ const documents = {
     "query ProductGetById($id: ID!) {\n  product(where: {id: $id}) {\n    id\n    name\n    description\n    price\n    images {\n      id\n      url\n    }\n  }\n}": types.ProductGetByIdDocument,
     "fragment ProductListItem on Product {\n  id\n  name\n  price\n  categories(first: 1) {\n    name\n  }\n  images(first: 1) {\n    url\n  }\n}": types.ProductListItemFragmentDoc,
     "query ProductsCategoryGetQuantity($slug: String) {\n  productsConnection(where: {categories_some: {slug: $slug}}) {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductsCategoryGetQuantityDocument,
+    "query ProductsCollectionGetQuantity($slug: String) {\n  productsConnection(where: {collections_some: {slug: $slug}}) {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductsCollectionGetQuantityDocument,
     "query ProductsGetByCategory($slug: String!, $first: Int, $skip: Int) {\n  categories(where: {slug: $slug}) {\n    products(first: $first, skip: $skip) {\n      ...ProductListItem\n    }\n  }\n}": types.ProductsGetByCategoryDocument,
+    "query ProductsGetBySearch($search: String!, $first: Int, $skip: Int) {\n  products(where: {_search: $search}, first: $first, skip: $skip) {\n    ...ProductListItem\n  }\n}": types.ProductsGetBySearchDocument,
     "query ProductsGetList($first: Int, $skip: Int) {\n  products(first: $first, skip: $skip) {\n    ...ProductListItem\n  }\n}": types.ProductsGetListDocument,
     "query ProductsGetQuantity {\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductsGetQuantityDocument,
+    "query ProductsSearchGetQuantity($search: String) {\n  productsConnection(where: {_search: $search}) {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductsSearchGetQuantityDocument,
 };
 
 /**
@@ -52,7 +55,15 @@ export function graphql(source: "query ProductsCategoryGetQuantity($slug: String
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "query ProductsCollectionGetQuantity($slug: String) {\n  productsConnection(where: {collections_some: {slug: $slug}}) {\n    aggregate {\n      count\n    }\n  }\n}"): typeof import('./graphql').ProductsCollectionGetQuantityDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "query ProductsGetByCategory($slug: String!, $first: Int, $skip: Int) {\n  categories(where: {slug: $slug}) {\n    products(first: $first, skip: $skip) {\n      ...ProductListItem\n    }\n  }\n}"): typeof import('./graphql').ProductsGetByCategoryDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query ProductsGetBySearch($search: String!, $first: Int, $skip: Int) {\n  products(where: {_search: $search}, first: $first, skip: $skip) {\n    ...ProductListItem\n  }\n}"): typeof import('./graphql').ProductsGetBySearchDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -61,6 +72,10 @@ export function graphql(source: "query ProductsGetList($first: Int, $skip: Int) 
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query ProductsGetQuantity {\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}"): typeof import('./graphql').ProductsGetQuantityDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query ProductsSearchGetQuantity($search: String) {\n  productsConnection(where: {_search: $search}) {\n    aggregate {\n      count\n    }\n  }\n}"): typeof import('./graphql').ProductsSearchGetQuantityDocument;
 
 
 export function graphql(source: string) {

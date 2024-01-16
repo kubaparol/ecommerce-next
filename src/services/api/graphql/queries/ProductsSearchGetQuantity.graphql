@@ -1,0 +1,7 @@
+query ProductsSearchGetQuantity($search: String) {
+	productsConnection(where: { _search: $search }) {
+		aggregate {
+			count
+		}
+	}
+}
