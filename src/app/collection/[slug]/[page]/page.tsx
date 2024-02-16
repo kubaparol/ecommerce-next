@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { DATA_PER_PAGE, ProjectUrls } from "@/const";
+import { DATA_PER_PAGE, ProjectUrls } from "@/constants";
 import { graphqlFetcher } from "@/services";
 import {
 	CollectionGetBySlugDocument,

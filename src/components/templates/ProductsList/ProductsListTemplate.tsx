@@ -1,6 +1,6 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
-import { ProductItem } from "@/components/UI/ProductItem/ProductItem";
-import { Pagination } from "@/components/UI/Pagination/Pagination";
+import { ProductItem } from "@/components/shared/ProductItem";
+import { Pagination } from "@/components/shared/Pagination";
 import { type ProductListItemFragment } from "@/services/api/graphql/configs/graphql";
 
 export interface ProductsListTemplateProps extends ComponentPropsWithoutRef<"section"> {
@@ -14,7 +14,7 @@ export const ProductsListTemplate: FC<ProductsListTemplateProps> = (props) => {
 	const { products, page, numOfPages, baseUrl } = props;
 
 	return (
-		<section className="grid gap-20">
+		<section className="grid gap-12 p-5 md:p-10">
 			<ul className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-8">
 				{products.map((product) => (
 					<li key={product.id}>
@@ -25,7 +25,7 @@ export const ProductsListTemplate: FC<ProductsListTemplateProps> = (props) => {
 
 			{numOfPages > 1 && (
 				<footer className="flex justify-center">
-					<Pagination current={page} totalCount={numOfPages} baseUrl={baseUrl} />
+					<Pagination current={page} total={numOfPages} baseUrl={baseUrl} />
 				</footer>
 			)}
 		</section>

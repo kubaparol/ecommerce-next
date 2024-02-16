@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { type Route } from "next";
-import { ProjectUrls } from "../const";
+import { ProjectUrls } from "../constants";
 
 interface Link {
 	label: string;

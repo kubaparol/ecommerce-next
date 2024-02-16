@@ -1,5 +1,5 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
-import Image from "next/image";
+import NextImage from "next/image";
 import { ShoppingBasket } from "lucide-react";
 import { type ProductGetByIdQuery } from "@/services/api/graphql/configs/graphql";
 import { formatPrice } from "@/utils";
@@ -21,7 +21,7 @@ export const SingleProductTemplate: FC<SingleProductTemplateProps> = (props) => 
 
 			<div className="grid grid-cols-1 gap-12 py-12 md:grid-cols-2">
 				<div className="relative aspect-video md:max-w-xl">
-					<Image
+					<NextImage
 						src={product.images[0]?.url || ""}
 						alt={product.name}
 						className="rounded-lg object-contain"

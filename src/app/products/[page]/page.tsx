@@ -1,5 +1,5 @@
 import { ProductsListTemplate } from "@/components/templates/ProductsList/ProductsListTemplate";
-import { DATA_PER_PAGE, ProjectUrls } from "@/const";
+import { DATA_PER_PAGE, ProjectUrls } from "@/constants";
 import { graphqlFetcher } from "@/services";
 import {
 	ProductsGetListDocument,

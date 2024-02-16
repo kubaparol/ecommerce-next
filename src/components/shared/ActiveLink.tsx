@@ -22,7 +22,8 @@ export const ActiveLink: FC<ActiveLinkProps> = (props) => {
 		<Link
 			href={href}
 			className={cn(
-				isActive && "pointer-events-none z-50 !cursor-default bg-secondary hover:bg-secondary",
+				isActive && "bg-secondary  pointer-events-none z-50 !cursor-default",
+				"p-medium-14 hover:bg-secondary rounded-lg px-4 py-2 transition",
 			)}
 		>
 			{label}

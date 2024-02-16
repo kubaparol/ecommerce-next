@@ -1,7 +1,7 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
 import NextImage from "next/image";
-import { ProductItem } from "@/components/UI/ProductItem/ProductItem";
-import { Pagination } from "@/components/UI/Pagination/Pagination";
+import { ProductItem } from "@/components/shared/ProductItem";
+import { Pagination } from "@/components/shared/Pagination";
 import { type CollectionGetBySlugQuery } from "@/services/api/graphql/configs/graphql";
 export interface CollectionTemplateProps extends ComponentPropsWithoutRef<"section"> {
 	collection: CollectionGetBySlugQuery["collections"][number];
@@ -15,7 +15,7 @@ export const CollectionTemplate: FC<CollectionTemplateProps> = (props) => {
 	const { name, image, products } = collection;
 
 	return (
-		<section className="grid gap-20">
+		<section className="grid gap-12 p-5 md:p-10">
 			<figure className="relative aspect-video">
 				<NextImage
 					src={image.url}
@@ -40,7 +40,7 @@ export const CollectionTemplate: FC<CollectionTemplateProps> = (props) => {
 
 			{numOfPages > 1 && (
 				<footer className="flex justify-center">
-					<Pagination current={page} totalCount={numOfPages} baseUrl={baseUrl} />
+					<Pagination current={page} total={numOfPages} baseUrl={baseUrl} />
 				</footer>
 			)}
 		</section>
