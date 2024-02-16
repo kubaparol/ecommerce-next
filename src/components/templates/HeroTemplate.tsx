@@ -31,6 +31,7 @@ export const HeroTemplate: FC<HeroTemplateProps> = (props) => {
 					alt="Hero"
 					width={1000}
 					height={1000}
+					priority
 					className="max-h-[70vh] rotate-2 rounded-full object-cover object-center shadow-2xl 2xl:max-h-[50vh]"
 				/>
 			</div>

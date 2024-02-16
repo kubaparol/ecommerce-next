@@ -32,7 +32,7 @@ export const Header: FC<HeaderProps> = (props) => {
 	return (
 		<header className="border-b">
 			<div className="wrapper flex items-center justify-between">
-				<Link href={ProjectUrls.home}>
+				<Link href={ProjectUrls.home} title="Home">
 					<Logo />
 				</Link>
 
