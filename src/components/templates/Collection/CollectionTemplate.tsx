@@ -11,11 +11,11 @@ export interface CollectionTemplateProps extends ComponentPropsWithoutRef<"secti
 }
 
 export const CollectionTemplate: FC<CollectionTemplateProps> = (props) => {
-	const { collection, page, numOfPages, baseUrl } = props;
+	const { collection, page, numOfPages, baseUrl, ...rest } = props;
 	const { name, image, products } = collection;
 
 	return (
-		<section className="grid gap-12 p-5 md:p-10">
+		<section {...rest} className="grid gap-12 p-5 md:p-10">
 			<figure className="relative aspect-video">
 				<NextImage
 					src={image.url}
