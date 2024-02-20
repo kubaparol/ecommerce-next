@@ -1,11 +1,11 @@
 "use client";
 
-import { type FC } from "react";
+import { Suspense, type FC } from "react";
 
 import Link from "next/link";
 import { ActiveLink } from "./ActiveLink";
 import { Logo } from "./Logo";
-import { SearchField } from "./Search";
+import { SearchField } from "./SearchField";
 import { ProjectUrls } from "@/constants";
 import {
 	type CollectionsGetListQuery,
@@ -36,7 +36,9 @@ export const Header: FC<HeaderProps> = (props) => {
 					<Logo />
 				</Link>
 
-				<SearchField className="max-w-[400px]" />
+				<Suspense>
+					<SearchField className="max-w-[400px]" />
+				</Suspense>
 
 				<NavigationMenu>
 					<NavigationMenuList>

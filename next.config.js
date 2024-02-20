@@ -1,10 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	images: {
-		domains: ["media.graphassets.com"],
-	},
-	experimental: {
-		typedRoutes: true,
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "media.graphassets.com",
+				port: "",
+			},
+		],
 	},
 	webpack(config) {
 		config.module.rules.push({
