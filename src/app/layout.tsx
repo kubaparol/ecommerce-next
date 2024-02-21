@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="pl">
-			<body className={cn("flex flex-col", poppins.variable)}>
+			<body className={cn("flex min-h-screen flex-col", poppins.variable)}>
 				<DefaultLayout>{children}</DefaultLayout>
 			</body>
 		</html>

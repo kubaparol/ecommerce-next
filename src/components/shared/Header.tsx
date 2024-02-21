@@ -1,33 +1,26 @@
-"use client";
-
-import { Suspense, type FC } from "react";
+import { type FC } from "react";
 
 import Link from "next/link";
-import { ActiveLink } from "./ActiveLink";
+import { ShoppingCart } from "lucide-react";
 import { Logo } from "./Logo";
-import { SearchField } from "./SearchField";
 import { ProjectUrls } from "@/constants";
 import {
 	type CollectionsGetListQuery,
 	type CategoriesGetListQuery,
 } from "@/services/api/graphql/configs/graphql";
-
-import {
-	NavigationMenu,
-	NavigationMenuContent,
-	NavigationMenuItem,
-	NavigationMenuLink,
-	NavigationMenuList,
-	NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+import { getCartFromCookies } from "@/app/api/cart";
 
 export interface HeaderProps {
 	collections: CollectionsGetListQuery["collections"];
 	categories: CategoriesGetListQuery["categories"];
 }
 
-export const Header: FC<HeaderProps> = (props) => {
-	const { collections, categories } = props;
+export const Header: FC<HeaderProps> = async (_props) => {
+	// const { collections, categories } = props;
+
+	const cart = await getCartFromCookies();
+
+	const count = cart?.orderItems.length || 0;
 
 	return (
 		<header className="border-b">
@@ -36,7 +29,7 @@ export const Header: FC<HeaderProps> = (props) => {
 					<Logo />
 				</Link>
 
-				<Suspense>
+				{/* <Suspense>
 					<SearchField className="max-w-[400px]" />
 				</Suspense>
 
@@ -86,7 +79,12 @@ export const Header: FC<HeaderProps> = (props) => {
 							</NavigationMenuContent>
 						</NavigationMenuItem>
 					</NavigationMenuList>
-				</NavigationMenu>
+				</NavigationMenu> */}
+
+				<div className="flex-center gap-4">
+					<ShoppingCart />
+					<span>{count}</span>
+				</div>
 			</div>
 		</header>
 	);

@@ -10,7 +10,7 @@ import {
 import { calculateNumOfPages, calculateSkip } from "@/utils";
 
 export async function generateStaticParams() {
-	const { productsConnection } = await graphqlFetcher(ProductsGetQuantityDocument);
+	const { productsConnection } = await graphqlFetcher({ query: ProductsGetQuantityDocument });
 	const count = productsConnection.aggregate.count;
 	const numOfPages = calculateNumOfPages(count, DATA_PER_PAGE);
 	const pages = Array.from({ length: numOfPages }, (_, i) => i + 1);
@@ -21,14 +21,20 @@ export default async function CategoryPage({ params }: { params: { page: string;
 	const page = Number(params.page);
 	const skip = calculateSkip(page, DATA_PER_PAGE);
 
-	const { categories } = await graphqlFetcher(ProductsGetByCategoryDocument, {
-		slug: params.slug,
-		first: DATA_PER_PAGE,
-		skip,
+	const { categories } = await graphqlFetcher({
+		query: ProductsGetByCategoryDocument,
+		variables: {
+			slug: params.slug,
+			first: DATA_PER_PAGE,
+			skip,
+		},
 	});
 
-	const { productsConnection } = await graphqlFetcher(ProductsCategoryGetQuantityDocument, {
-		slug: params.slug,
+	const { productsConnection } = await graphqlFetcher({
+		query: ProductsCategoryGetQuantityDocument,
+		variables: {
+			slug: params.slug,
+		},
 	});
 	const count = productsConnection.aggregate.count;
 	const numOfPages = calculateNumOfPages(count, DATA_PER_PAGE);

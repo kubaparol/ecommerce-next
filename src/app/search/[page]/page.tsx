@@ -18,14 +18,20 @@ export default async function SearchResultPage({
 	const skip = calculateSkip(page, DATA_PER_PAGE);
 	const search = searchParams.query || "";
 
-	const { products } = await graphqlFetcher(ProductsGetBySearchDocument, {
-		first: DATA_PER_PAGE,
-		skip,
-		search,
+	const { products } = await graphqlFetcher({
+		query: ProductsGetBySearchDocument,
+		variables: {
+			first: DATA_PER_PAGE,
+			skip,
+			search,
+		},
 	});
 
-	const { productsConnection } = await graphqlFetcher(ProductsSearchGetQuantityDocument, {
-		search,
+	const { productsConnection } = await graphqlFetcher({
+		query: ProductsSearchGetQuantityDocument,
+		variables: {
+			search,
+		},
 	});
 	const count = productsConnection.aggregate.count;
 	const numOfPages = calculateNumOfPages(count, DATA_PER_PAGE);

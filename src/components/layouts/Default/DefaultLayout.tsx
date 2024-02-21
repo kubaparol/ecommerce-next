@@ -12,14 +12,14 @@ export interface DefaultLayoutProps extends PropsWithChildren {}
 export const DefaultLayout: FC<DefaultLayoutProps> = async (props) => {
 	const { children } = props;
 
-	const { categories } = await graphqlFetcher(CategoriesGetListDocument);
+	const { categories } = await graphqlFetcher({ query: CategoriesGetListDocument });
 
-	const { collections } = await graphqlFetcher(CollectionsGetListDocument);
+	const { collections } = await graphqlFetcher({ query: CollectionsGetListDocument });
 
 	return (
 		<>
 			<Header categories={categories} collections={collections} />
-			<main>{children}</main>
+			<main className="flex-1">{children}</main>
 			<Footer />
 		</>
 	);
