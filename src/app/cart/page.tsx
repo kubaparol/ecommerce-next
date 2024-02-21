@@ -1,23 +1,11 @@
 import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
-import { graphqlFetcher } from "@/services";
-import { CartGetByIdDocument } from "@/services/api/graphql/configs/graphql";
+import { getCartFromCookies } from "../api/cart";
 import { formatPrice } from "@/utils";
 import { IncrementProductQuantity } from "@/components/shared/IncrementProductQuantity";
+import { RemoveFromCart } from "@/components/shared/RemoveFromCart";
 
 export default async function CartPage() {
-	const cartId = cookies().get("cartId")?.value;
-
-	if (!cartId) {
-		redirect("/");
-	}
-
-	const { order: cart } = await graphqlFetcher({
-		query: CartGetByIdDocument,
-		variables: {
-			id: cartId,
-		},
-	});
+	const cart = await getCartFromCookies();
 
 	if (!cart) {
 		redirect("/");
@@ -33,6 +21,7 @@ export default async function CartPage() {
 						<th className="px-4 py-2">Product</th>
 						<th className="px-4 py-2">Quantity</th>
 						<th className="px-4 py-2">Price</th>
+						<th />
 					</tr>
 				</thead>
 
@@ -49,6 +38,9 @@ export default async function CartPage() {
 									<IncrementProductQuantity quantity={item.quantity} itemId={item.id} />
 								</td>
 								<td className="px-4 py-2">{formatPrice(item.product.price)}</td>
+								<td>
+									<RemoveFromCart itemId={item.id} />
+								</td>
 							</tr>
 						);
 					})}
