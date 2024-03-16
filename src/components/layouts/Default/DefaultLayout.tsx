@@ -19,7 +19,7 @@ export const DefaultLayout: FC<DefaultLayoutProps> = async (props) => {
 	return (
 		<>
 			<Header categories={categories} collections={collections} />
-			<main className="flex-1">{children}</main>
+			<main className="flex flex-1 flex-col">{children}</main>
 			<Footer />
 		</>
 	);

@@ -6,7 +6,7 @@ import { ProductGetByIdDocument } from "@/services/api/graphql/configs/graphql";
 import { graphqlFetcher } from "@/services";
 import { formatPrice } from "@/utils";
 import { AddToCartButton } from "@/components/shared/AddToCartButton";
-import { addProductToCart, getOrCreateCart } from "@/app/api/cart";
+import { addProductToCart, getOrCreateCart } from "@/api/cart";
 
 export const generateMetadata = async ({
 	params,

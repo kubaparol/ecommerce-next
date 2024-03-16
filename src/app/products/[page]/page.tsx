@@ -25,6 +25,9 @@ export default async function ProductsPage({ params }: { params: { page: string 
 			first: DATA_PER_PAGE,
 			skip,
 		},
+		next: {
+			revalidate: 15,
+		},
 	});
 
 	const { productsConnection } = await graphqlFetcher({ query: ProductsGetQuantityDocument });

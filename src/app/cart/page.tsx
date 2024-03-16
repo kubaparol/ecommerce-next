@@ -1,8 +1,9 @@
 import { redirect } from "next/navigation";
-import { getCartFromCookies } from "../api/cart";
+import { getCartFromCookies, handlePaymentAction } from "../../api/cart";
 import { formatPrice } from "@/utils";
 import { IncrementProductQuantity } from "@/components/shared/IncrementProductQuantity";
 import { RemoveFromCart } from "@/components/shared/RemoveFromCart";
+import { Button } from "@/components/ui/button";
 
 export default async function CartPage() {
 	const cart = await getCartFromCookies();
@@ -12,7 +13,7 @@ export default async function CartPage() {
 	}
 
 	return (
-		<div className="wrapper mx-auto max-w-4xl p-4">
+		<div className="wrapper mx-auto grid max-w-4xl gap-8 p-4">
 			<h1 className="mb-6 text-2xl font-semibold">Order #{cart.id} summary</h1>
 
 			<table className="w-full table-auto">
@@ -46,6 +47,12 @@ export default async function CartPage() {
 					})}
 				</tbody>
 			</table>
+
+			<form action={handlePaymentAction}>
+				<Button type="submit" className="w-fit">
+					Pay
+				</Button>
+			</form>
 		</div>
 	);
 }

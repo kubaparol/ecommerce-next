@@ -1,6 +1,8 @@
 "use server";
 
 import { cookies } from "next/headers";
+import Stripe from "stripe";
+import { redirect } from "next/navigation";
 import {
 	CartGetByIdDocument,
 	type CartFragment,
@@ -42,8 +44,9 @@ export async function getCartFromCookies() {
 			variables: {
 				id: cartId,
 			},
+			cache: "no-store",
 			next: {
-				tags: ["shopping-cart"], // <---
+				tags: ["shopping-cart"],
 			},
 		});
 
@@ -54,13 +57,14 @@ export async function getCartFromCookies() {
 }
 
 export async function createCart() {
-	return graphqlFetcher({ query: CartCreateDocument });
+	return graphqlFetcher({ query: CartCreateDocument, cache: "no-store" });
 }
 
 export async function addProductToCart(cartId: string, productId: string) {
 	const { product } = await graphqlFetcher({
 		query: ProductGetByIdDocument,
 		variables: { id: productId },
+		cache: "no-store",
 	});
 
 	if (!product) {
@@ -75,4 +79,49 @@ export async function addProductToCart(cartId: string, productId: string) {
 			total: product.price,
 		},
 	});
+}
+
+export async function handlePaymentAction() {
+	"use server";
+	if (!process.env.STRIPE_SECRET_KEY) {
+		throw new Error("Stripe secret key is not set");
+	}
+
+	const cart = await getCartFromCookies();
+
+	if (!cart) {
+		redirect("/");
+	}
+
+	const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+		apiVersion: "2023-10-16",
+		typescript: true,
+	});
+
+	const checkoutSession = await stripe.checkout.sessions.create({
+		payment_method_types: ["card", "blik", "p24"],
+		metadata: {
+			cartId: cart.id,
+		},
+		line_items: cart.orderItems.map((item) => ({
+			price_data: {
+				currency: "pln",
+				product_data: {
+					name: item.product?.name || "",
+				},
+				unit_amount: item.product?.price || 0,
+			},
+			quantity: item.quantity,
+		})),
+		mode: "payment",
+		success_url: "http://localhost:3000/cart/success?sessionId={CHECKOUT_SESSION_ID}",
+		cancel_url: "http://localhost:3000/cart/cancel",
+	});
+
+	if (!checkoutSession.url) {
+		throw new Error("Checkout session URL is not set");
+	}
+
+	cookies().set("cartId", "");
+	redirect(checkoutSession.url);
 }

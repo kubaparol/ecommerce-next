@@ -8,7 +8,7 @@ import {
 	type CollectionsGetListQuery,
 	type CategoriesGetListQuery,
 } from "@/services/api/graphql/configs/graphql";
-import { getCartFromCookies } from "@/app/api/cart";
+import { getCartFromCookies } from "@/api/cart";
 
 export interface HeaderProps {
 	collections: CollectionsGetListQuery["collections"];
@@ -81,10 +81,10 @@ export const Header: FC<HeaderProps> = async (_props) => {
 					</NavigationMenuList>
 				</NavigationMenu> */}
 
-				<div className="flex-center gap-4">
+				<Link href={ProjectUrls.cart} className="flex-center gap-4">
 					<ShoppingCart />
 					<span>{count}</span>
-				</div>
+				</Link>
 			</div>
 		</header>
 	);
