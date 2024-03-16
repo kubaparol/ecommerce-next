@@ -1,3 +1,4 @@
+import type { Config } from "tailwindcss";
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
@@ -8,6 +9,7 @@ module.exports = {
 		"./app/**/*.{ts,tsx}",
 		"./src/**/*.{ts,tsx}",
 	],
+	prefix: "",
 	theme: {
 		container: {
 			center: true,
@@ -18,28 +20,15 @@ module.exports = {
 		},
 		extend: {
 			colors: {
-				primary: {
-					500: "#624CF5",
-					50: " #F6F8FD",
-					DEFAULT: "#624CF5",
-					foreground: "hsl(var(--primary-foreground))",
-				},
-				coral: {
-					500: "#15BF59",
-				},
-
-				grey: {
-					600: "#545454", // Subdued - color name in figma
-					500: "#757575",
-					400: "#AFAFAF", // Disabled - color name in figma
-					50: "#F6F6F6", // White Grey - color name in figma
-				},
-				black: "#000000",
-				white: "#FFFFFF",
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
 				ring: "hsl(var(--ring))",
+				background: "hsl(var(--background))",
 				foreground: "hsl(var(--foreground))",
+				primary: {
+					DEFAULT: "hsl(var(--primary))",
+					foreground: "hsl(var(--primary-foreground))",
+				},
 				secondary: {
 					DEFAULT: "hsl(var(--secondary))",
 					foreground: "hsl(var(--secondary-foreground))",
@@ -65,12 +54,6 @@ module.exports = {
 					foreground: "hsl(var(--card-foreground))",
 				},
 			},
-			fontFamily: {
-				poppins: ["var(--font-poppins)"],
-			},
-			backgroundImage: {
-				"dotted-pattern": "url('/assets/dotted-pattern.png')",
-			},
 			borderRadius: {
 				lg: "var(--radius)",
 				md: "calc(var(--radius) - 2px)",
@@ -93,4 +76,4 @@ module.exports = {
 		},
 	},
 	plugins: [require("tailwindcss-animate")],
-};
+} satisfies Config;

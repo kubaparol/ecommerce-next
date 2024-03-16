@@ -23,7 +23,7 @@ export const Header: FC<HeaderProps> = async (_props) => {
 	const count = cart?.orderItems.length || 0;
 
 	return (
-		<header className="border-b">
+		<header className="border-b border-border">
 			<div className="wrapper flex items-center justify-between">
 				<Link href={ProjectUrls.home} title="Home">
 					<Logo />
