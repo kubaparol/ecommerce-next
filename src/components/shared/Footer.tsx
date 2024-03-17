@@ -15,7 +15,7 @@ export const Footer: FC<FooterProps> = (props) => {
 					<p className="font-bold text-inherit">BIRD</p>
 				</Link>
 
-				<p className="small">2024 Bird. All Rights reserved.</p>
+				<p className="small">© 2024 Bird. All rights reserved.</p>
 			</div>
 		</footer>
 	);

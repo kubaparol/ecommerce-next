@@ -93,7 +93,7 @@ export const Header: FC<HeaderProps> = async (props) => {
 					<span>1</span>
 				</Button>
 
-				<MobileMenu />
+				<MobileMenu collections={collections} categories={categories} />
 			</NavbarContent>
 		</Navbar>
 	);

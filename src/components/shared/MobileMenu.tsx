@@ -2,13 +2,23 @@
 
 import { type FC, useEffect, useRef } from "react";
 import { useCycle, motion } from "framer-motion";
+import { Link } from "@nextui-org/react";
+import { ArrowRight } from "lucide-react";
 import { MenuToggle } from "./MenuToggle";
 import { useDimensions } from "@/hooks";
+import {
+	type CategoriesGetListQuery,
+	type CollectionsGetListQuery,
+} from "@/services/api/graphql/configs/graphql";
+import { ProjectUrls } from "@/constants";
 
-export interface MobileMenuProps {}
+export interface MobileMenuProps {
+	collections: CollectionsGetListQuery["collections"];
+	categories: CategoriesGetListQuery["categories"];
+}
 
 export const MobileMenu: FC<MobileMenuProps> = (props) => {
-	const {} = props;
+	const { collections, categories } = props;
 
 	const [isOpen, toggleOpen] = useCycle(false, true);
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -32,10 +42,58 @@ export const MobileMenu: FC<MobileMenuProps> = (props) => {
 				ref={containerRef}
 				initial="closed"
 				animate={isOpen ? "open" : "closed"}
-				className="fixed right-0 top-[64px] h-screen w-full bg-white"
+				className="fixed right-0 top-[64px] flex h-[calc(100vh-64px)] w-full flex-col overflow-auto bg-white"
 				custom={height}
 				variants={sidebar}
-			></motion.div>
+			>
+				<div className="p-4">
+					<p className="text-sm font-extralight text-gray-400">Categories</p>
+
+					<ul className="mt-2 grid gap-3">
+						{categories.map((c) => (
+							<li key={c.id}>
+								<Link
+									size="md"
+									color="foreground"
+									href={ProjectUrls.category(c.slug)}
+									showAnchorIcon
+									anchorIcon={<ArrowRight size={16} />}
+									className="w-full  justify-between"
+								>
+									{c.name}
+								</Link>
+							</li>
+						))}
+					</ul>
+				</div>
+
+				<div className="p-4">
+					<p className="text-sm font-extralight text-gray-400">Collections</p>
+
+					<ul className="mt-2 grid gap-3">
+						{collections.map((c) => (
+							<li key={c.id}>
+								<Link
+									size="md"
+									color="foreground"
+									href={ProjectUrls.category(c.slug)}
+									showAnchorIcon
+									anchorIcon={<ArrowRight size={16} />}
+									className="w-full justify-between"
+								>
+									{c.name}
+								</Link>
+							</li>
+						))}
+					</ul>
+				</div>
+
+				<footer className="border-border mt-auto border-t p-2">
+					<p className="text-center text-sm font-extralight text-gray-400">
+						© 2024 Bird. All rights reserved.
+					</p>
+				</footer>
+			</motion.div>
 		</>
 	);
 };
