@@ -46,7 +46,7 @@ export const MobileMenu: FC<MobileMenuProps> = (props) => {
 				ref={containerRef}
 				initial="closed"
 				animate={isOpen ? "open" : "closed"}
-				className="fixed right-0 top-[64px] flex h-[calc(100vh-64px)] w-full flex-col overflow-auto bg-white"
+				className="fixed right-0 top-[64px] flex h-[calc(100vh-64px)] w-full flex-col overflow-auto bg-background/70 backdrop-blur-xl backdrop-saturate-150"
 				custom={height}
 				variants={sidebar}
 			>
@@ -59,6 +59,7 @@ export const MobileMenu: FC<MobileMenuProps> = (props) => {
 								<Link
 									size="md"
 									color="foreground"
+									onClick={() => toggleOpen()}
 									href={ProjectUrls.category(c.slug)}
 									showAnchorIcon
 									anchorIcon={<ArrowRight size={16} />}
@@ -80,6 +81,7 @@ export const MobileMenu: FC<MobileMenuProps> = (props) => {
 								<Link
 									size="md"
 									color="foreground"
+									onClick={() => toggleOpen()}
 									href={ProjectUrls.category(c.slug)}
 									showAnchorIcon
 									anchorIcon={<ArrowRight size={16} />}

@@ -4,6 +4,32 @@ query ProductGetById($id: ID!) {
 		name
 		description
 		price
+		variants {
+			... on ProductColorVariant {
+				id
+				name
+				color
+			}
+			... on ProductSizeColorVariant {
+				id
+				name
+				color
+				size
+			}
+			... on ProductSizeVariant {
+				id
+				name
+				size
+			}
+		}
+		collections {
+			id
+			name
+		}
+		categories {
+			id
+			name
+		}
 		images {
 			id
 			url

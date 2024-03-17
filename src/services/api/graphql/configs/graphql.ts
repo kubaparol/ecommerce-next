@@ -10826,7 +10826,7 @@ export type ProductGetByIdQueryVariables = Exact<{
 }>;
 
 
-export type ProductGetByIdQuery = { product?: { id: string, name: string, description: string, price: number, images: Array<{ id: string, url: string }> } | null };
+export type ProductGetByIdQuery = { product?: { id: string, name: string, description: string, price: number, variants: Array<{ id: string, name: string, color: ProductColor } | { id: string, name: string, color: ProductColor, size: ProductSize } | { id: string, name: string, size: ProductSize }>, collections: Array<{ id: string, name: string }>, categories: Array<{ id: string, name: string }>, images: Array<{ id: string, url: string }> } | null };
 
 export type ProductListItemFragment = { id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> };
 
@@ -11060,6 +11060,32 @@ export const ProductGetByIdDocument = new TypedDocumentString(`
     name
     description
     price
+    variants {
+      ... on ProductColorVariant {
+        id
+        name
+        color
+      }
+      ... on ProductSizeColorVariant {
+        id
+        name
+        color
+        size
+      }
+      ... on ProductSizeVariant {
+        id
+        name
+        size
+      }
+    }
+    collections {
+      id
+      name
+    }
+    categories {
+      id
+      name
+    }
     images {
       id
       url
