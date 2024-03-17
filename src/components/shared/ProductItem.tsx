@@ -1,22 +1,9 @@
 import { type FC } from "react";
-import NextImage from "next/image";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
-import { Button } from "../ui/button";
-import { formatPrice } from "@/utils";
+import { ArrowRight, ShoppingCart } from "lucide-react";
+import { Button, Card, CardFooter, Image, Link } from "@nextui-org/react";
 import { ProjectUrls } from "@/constants";
 import { type ProductListItemFragment } from "@/services/api/graphql/configs/graphql";
-
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
+import { formatPrice } from "@/utils";
 
 export interface ProductItemProps {
 	product: ProductListItemFragment;
@@ -27,39 +14,45 @@ export const ProductItem: FC<ProductItemProps> = (props) => {
 	const { id, name, price, images } = product;
 
 	return (
-		<Card className="card h-full rounded-lg border border-gray-200 bg-white shadow-sm duration-300">
-			<AspectRatio ratio={16 / 9}>
-				<NextImage
+		<Card isFooterBlurred>
+			<div className="relative">
+				{/* <Button
+					endContent={<Heart />}
+					isIconOnly
+					color="default"
+					className="absolute right-2 top-2 z-20"
+				/> */}
+
+				<Image
 					src={images[0]?.url || ""}
 					alt={name}
-					fill
-					priority
-					sizes="100%"
-					className="object-contain py-3"
+					shadow="md"
+					width="100%"
+					className="object-cover"
+					removeWrapper
 				/>
-			</AspectRatio>
+			</div>
 
-			<CardHeader className="px-4 pt-2">
-				<CardTitle className="truncate text-xl font-bold text-gray-900">{name}</CardTitle>
-				<CardDescription className="line-clamp-2 text-sm text-gray-700">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam ab accusantium cum a
-					eligendi expedita dolorum culpa, hic aliquid in minus quibusdam dignissimos at vero
-					nesciunt maiores neque recusandae doloremque?
-				</CardDescription>
-			</CardHeader>
+			<CardFooter className="grid w-full border-t-1 border-zinc-100/50 bg-white/50">
+				<p className="text-medium font-medium text-black">{name}</p>
+				<p className="text-sm text-black">{formatPrice(price)}</p>
 
-			<CardContent>
-				<CardFooter className="flex-between">
-					<p className="p-bold-24">{formatPrice(price)}</p>
+				<div className="mt-3 flex items-center justify-between gap-2">
+					<Button variant="flat" color="warning" endContent={<ShoppingCart />} isIconOnly />
 
-					<Button asChild>
-						<Link href={`${ProjectUrls.product}/${id}`} className="flex-center gap-2">
-							Zobacz
-							<ArrowRight />
-						</Link>
+					<Button
+						as={Link}
+						href={ProjectUrls.product(id)}
+						className="group group-hover:translate-x-1"
+						color="primary"
+					>
+						See more
+						<span className="transition-transform duration-300 group-hover:translate-x-1">
+							<ArrowRight size={18} />
+						</span>
 					</Button>
-				</CardFooter>
-			</CardContent>
+				</div>
+			</CardFooter>
 		</Card>
 	);
 };

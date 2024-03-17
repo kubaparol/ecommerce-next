@@ -76,7 +76,7 @@
 
 @layer utilities {
 	.wrapper {
-		@apply w-full max-w-7xl p-5 md:px-10 lg:mx-auto xl:px-0;
+		@apply m-auto w-full max-w-[1536px] px-3 py-4 sm:px-6;
 	}
 
 	.flex-center {
@@ -117,11 +117,11 @@
 	}
 
 	.inline-code {
-		@apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
+		@apply bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
 	}
 
 	.lead {
-		@apply text-xl text-muted-foreground;
+		@apply text-muted-foreground text-xl;
 	}
 
 	.large {
@@ -130,10 +130,6 @@
 
 	.small {
 		@apply text-sm font-medium leading-none;
-	}
-
-	.muted {
-		@apply text-sm text-muted-foreground;
 	}
 }
 

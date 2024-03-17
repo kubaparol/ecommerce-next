@@ -7,7 +7,7 @@ import {
 	ProductsGetQuantityDocument,
 } from "@/services/api/graphql/configs/graphql";
 import { calculateNumOfPages, calculateSkip } from "@/utils";
-import { CollectionTemplate } from "@/components/templates/Collection/CollectionTemplate";
+import { CollectionTemplate } from "@/components/templates/CollectionTemplate";
 
 export async function generateStaticParams() {
 	const { productsConnection } = await graphqlFetcher({ query: ProductsGetQuantityDocument });

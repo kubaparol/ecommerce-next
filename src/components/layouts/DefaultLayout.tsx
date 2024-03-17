@@ -1,6 +1,6 @@
 import { type PropsWithChildren, type FC } from "react";
+import { Header } from "../shared/Header";
 import { Footer } from "@/components/shared/Footer";
-import { Header } from "@/components/shared/Header";
 import { graphqlFetcher } from "@/services";
 import {
 	CategoriesGetListDocument,
@@ -19,7 +19,7 @@ export const DefaultLayout: FC<DefaultLayoutProps> = async (props) => {
 	return (
 		<>
 			<Header categories={categories} collections={collections} />
-			<main className="flex flex-1 flex-col">{children}</main>
+			<main className="wrapper min-h-[calc(100vh-64px-57px)]">{children}</main>
 			<Footer />
 		</>
 	);

@@ -1,6 +1,6 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
+import { Pagination } from "../shared/Pagination";
 import { ProductItem } from "@/components/shared/ProductItem";
-import { Pagination } from "@/components/shared/Pagination";
 import { type ProductListItemFragment } from "@/services/api/graphql/configs/graphql";
 
 export interface ProductsListTemplateProps extends ComponentPropsWithoutRef<"section"> {
@@ -23,11 +23,9 @@ export const ProductsListTemplate: FC<ProductsListTemplateProps> = (props) => {
 				))}
 			</ul>
 
-			{numOfPages > 1 && (
-				<footer className="flex justify-center">
-					<Pagination current={page} total={numOfPages} baseUrl={baseUrl} />
-				</footer>
-			)}
+			<footer className="flex justify-center">
+				<Pagination current={page} total={numOfPages} baseUrl={baseUrl} />
+			</footer>
 		</section>
 	);
 };

@@ -38,11 +38,9 @@ export const CollectionTemplate: FC<CollectionTemplateProps> = (props) => {
 				))}
 			</ul>
 
-			{numOfPages > 1 && (
-				<footer className="flex justify-center">
-					<Pagination current={page} total={numOfPages} baseUrl={baseUrl} />
-				</footer>
-			)}
+			<footer className="flex justify-center">
+				<Pagination current={page} total={numOfPages} baseUrl={baseUrl} />
+			</footer>
 		</section>
 	);
 };
