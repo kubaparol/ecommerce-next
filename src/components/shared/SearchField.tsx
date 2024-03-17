@@ -1,26 +1,21 @@
 "use client";
 
-import { Search } from "lucide-react";
-import {
-	type FC,
-	useState,
-	type ComponentPropsWithoutRef,
-	useEffect,
-	type ChangeEvent,
-} from "react";
+import { SearchIcon } from "lucide-react";
+import { type FC, useState, useEffect, type ChangeEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { type Route } from "next";
-import { cn, removeKeysFromQuery } from "@/utils";
+import { Input } from "@nextui-org/react";
+import { removeKeysFromQuery } from "@/utils";
 import { ProjectUrls } from "@/constants";
 import { useDebouncedValue } from "@/hooks";
 
-export interface SearchFieldProps extends ComponentPropsWithoutRef<"div"> {
+export interface SearchFieldProps {
 	initialValue?: string;
 	placeholder?: string;
 }
 
 export const SearchField: FC<SearchFieldProps> = (props) => {
-	const { initialValue = "", placeholder = "Szukaj...", className, ...rest } = props;
+	const { initialValue = "", placeholder = "Search..." } = props;
 
 	const router = useRouter();
 	const [query, setQuery] = useState<string>(initialValue);
@@ -45,18 +40,17 @@ export const SearchField: FC<SearchFieldProps> = (props) => {
 	}, [debouncedValue, router, searchParams]);
 
 	return (
-		<div
-			{...rest}
-			className={cn("flex-center w-full overflow-hidden rounded-full bg-grey-50 px-4", className)}
-		>
-			<Search size={21} />
-
-			<input
-				type="text"
-				placeholder={placeholder}
-				onChange={handleChange}
-				className="p-regular-14 border-0 bg-grey-50 outline-offset-0 placeholder:text-grey-500 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-			/>
-		</div>
+		<Input
+			classNames={{
+				base: "max-w-full sm:max-w-md h-10 hidden md:block",
+				inputWrapper:
+					"h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
+			}}
+			placeholder={placeholder}
+			size="sm"
+			startContent={<SearchIcon size={18} />}
+			type="search"
+			onChange={handleChange}
+		/>
 	);
 };

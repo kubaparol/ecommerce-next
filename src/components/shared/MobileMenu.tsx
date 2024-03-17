@@ -35,7 +35,11 @@ export const MobileMenu: FC<MobileMenuProps> = (props) => {
 	return (
 		<>
 			<motion.div animate={isOpen ? "open" : "closed"}>
-				<MenuToggle toggle={toggleOpen} className="grid md:hidden" />
+				<MenuToggle
+					toggle={toggleOpen}
+					className="grid md:hidden"
+					aria-label={isOpen ? "Close menu" : "Open menu"}
+				/>
 			</motion.div>
 
 			<motion.div
