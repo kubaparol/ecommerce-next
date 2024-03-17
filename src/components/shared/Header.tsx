@@ -1,91 +1,100 @@
 import { type FC } from "react";
 
-import Link from "next/link";
-import { ShoppingCart } from "lucide-react";
-import { Logo } from "./Logo";
-import { ProjectUrls } from "@/constants";
+import { Button, Input, Link, Navbar, NavbarContent } from "@nextui-org/react";
+import { Bird, ChevronDown, SearchIcon, ShoppingCart } from "lucide-react";
+
+import { ActiveLink } from "./ActiveLink";
+import { Dropdown } from "./Dropdown";
+import { MobileMenu } from "./MobileMenu";
 import {
 	type CollectionsGetListQuery,
 	type CategoriesGetListQuery,
 } from "@/services/api/graphql/configs/graphql";
-import { getCartFromCookies } from "@/api/cart";
+import { ProjectUrls } from "@/constants";
 
 export interface HeaderProps {
 	collections: CollectionsGetListQuery["collections"];
 	categories: CategoriesGetListQuery["categories"];
 }
 
-export const Header: FC<HeaderProps> = async (_props) => {
-	// const { collections, categories } = props;
-
-	const cart = await getCartFromCookies();
-
-	const count = cart?.orderItems.length || 0;
+export const Header: FC<HeaderProps> = async (props) => {
+	const { collections, categories } = props;
 
 	return (
-		<header className="border-b border-border">
-			<div className="wrapper flex items-center justify-between">
-				<Link href={ProjectUrls.home} title="Home">
-					<Logo />
+		<Navbar shouldHideOnScroll isBlurred maxWidth="2xl">
+			<NavbarContent>
+				<Link color="foreground" href="/" className="flex-center gap-1">
+					<Bird />
+					<p className="font-bold text-inherit">BIRD</p>
 				</Link>
 
-				{/* <Suspense>
-					<SearchField className="max-w-[400px]" />
-				</Suspense>
+				<ul className="md:flex-center hidden gap-1">
+					<ActiveLink href={ProjectUrls.products} label="All" />
 
-				<NavigationMenu>
-					<NavigationMenuList>
-						<NavigationMenuItem>
-							<NavigationMenuTrigger>Kategorie</NavigationMenuTrigger>
+					<li>
+						<Dropdown
+							trigger={{
+								children: "Categories",
+								variant: "light",
+								endContent: <ChevronDown size={18} />,
+							}}
+							menu={{
+								"aria-label": "Categories options",
+							}}
+							items={categories.map((c) => ({
+								key: c.id,
+								children: c.name,
+								as: Link,
+								href: ProjectUrls.category(c.slug),
+								className: "text-black",
+							}))}
+							disableCurrentOption
+						/>
+					</li>
 
-							<NavigationMenuContent>
-								<ul className="grid gap-2 whitespace-nowrap p-4">
-									<li>
-										<NavigationMenuLink asChild>
-											<ActiveLink href={ProjectUrls.products} label="Wszystkie produkty" />
-										</NavigationMenuLink>
-									</li>
+					<li>
+						<Dropdown
+							trigger={{
+								children: "Collections",
+								variant: "light",
+								endContent: <ChevronDown size={18} />,
+							}}
+							menu={{
+								"aria-label": "Collections options",
+							}}
+							items={collections.map((c) => ({
+								key: c.id,
+								children: c.name,
+								as: Link,
+								href: ProjectUrls.collection(c.slug),
+								className: "text-black",
+							}))}
+							disableCurrentOption
+						/>
+					</li>
+				</ul>
+			</NavbarContent>
 
-									{categories.map((category) => (
-										<li key={category.id}>
-											<NavigationMenuLink asChild>
-												<ActiveLink
-													href={ProjectUrls.category(category.slug)}
-													label={category.name}
-												/>
-											</NavigationMenuLink>
-										</li>
-									))}
-								</ul>
-							</NavigationMenuContent>
-						</NavigationMenuItem>
+			<Input
+				classNames={{
+					base: "max-w-full sm:max-w-md h-10 hidden md:block",
+					inputWrapper:
+						"h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
+				}}
+				placeholder="Type to search..."
+				size="sm"
+				startContent={<SearchIcon size={18} />}
+				type="search"
+			/>
 
-						<NavigationMenuItem>
-							<NavigationMenuTrigger>Kolekcje</NavigationMenuTrigger>
-
-							<NavigationMenuContent>
-								<ul className="grid gap-2 whitespace-nowrap p-4">
-									{collections.map((collection) => (
-										<li key={collection.id}>
-											<NavigationMenuLink asChild>
-												<ActiveLink
-													href={ProjectUrls.collection(collection.slug)}
-													label={collection.name}
-												/>
-											</NavigationMenuLink>
-										</li>
-									))}
-								</ul>
-							</NavigationMenuContent>
-						</NavigationMenuItem>
-					</NavigationMenuList>
-				</NavigationMenu> */}
-
-				<Link href={ProjectUrls.cart} className="flex-center gap-4">
+			<NavbarContent justify="end" className="gap-1">
+				<Button variant="light" aria-label="Koszyk" as={Link} href={ProjectUrls.cart}>
 					<ShoppingCart />
-					<span>{count}</span>
-				</Link>
-			</div>
-		</header>
+					<span>1</span>
+				</Button>
+
+				<MobileMenu />
+			</NavbarContent>
+		</Navbar>
 	);
 };

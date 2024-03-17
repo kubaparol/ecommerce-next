@@ -3,9 +3,8 @@ import { Poppins } from "next/font/google";
 import { type ReactNode } from "react";
 
 import "../styles/globals.css";
-import { cn } from "@/utils";
+import { Providers } from "./providers";
 import { DefaultLayout } from "@/components/layouts/DefaultLayout";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 const poppins = Poppins({
 	subsets: ["latin"],
@@ -21,15 +20,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children, modal }: { children: ReactNode; modal: ReactNode }) {
 	return (
 		<html lang="pl">
-			<body className={cn("flex min-h-screen flex-col", poppins.variable)}>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
+			<body className={poppins.variable}>
+				<Providers>
 					<DefaultLayout>{children}</DefaultLayout>
-				</ThemeProvider>
+				</Providers>
 
 				{modal}
 			</body>

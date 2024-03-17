@@ -1,9 +1,7 @@
 import { redirect } from "next/navigation";
 import { getCartFromCookies, handlePaymentAction } from "../../api/cart";
-import { formatPrice } from "@/utils";
 import { IncrementProductQuantity } from "@/components/shared/IncrementProductQuantity";
 import { RemoveFromCart } from "@/components/shared/RemoveFromCart";
-import { Button } from "@/components/ui/button";
 
 export default async function CartPage() {
 	const cart = await getCartFromCookies();
@@ -38,7 +36,7 @@ export default async function CartPage() {
 								<td className=" px-4 py-2">
 									<IncrementProductQuantity quantity={item.quantity} itemId={item.id} />
 								</td>
-								<td className="px-4 py-2">{formatPrice(item.product.price)}</td>
+								<td className="px-4 py-2">{item.product.price}</td>
 								<td>
 									<RemoveFromCart itemId={item.id} />
 								</td>
@@ -49,9 +47,9 @@ export default async function CartPage() {
 			</table>
 
 			<form action={handlePaymentAction}>
-				<Button type="submit" className="w-fit">
+				<button type="submit" className="w-fit">
 					Pay
-				</Button>
+				</button>
 			</form>
 		</div>
 	);

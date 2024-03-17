@@ -1,7 +1,7 @@
-import { type NextResponse } from "next/server";
+import { type NextRequest } from "next/server";
 import Stripe from "stripe";
 
-export async function POST(request: NextResponse): Promise<Response> {
+export async function POST(request: NextRequest): Promise<Response> {
 	if (!process.env.STRIPE_SECRET_KEY) {
 		throw new Error("Stripe secret key is not set");
 	}

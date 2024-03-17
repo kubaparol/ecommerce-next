@@ -2,7 +2,6 @@
 
 import { Plus } from "lucide-react";
 import { useOptimistic } from "react";
-import { Button } from "../ui/button";
 import { changeItemQuantity } from "@/app/cart/actions";
 
 export const IncrementProductQuantity = ({
@@ -21,9 +20,7 @@ export const IncrementProductQuantity = ({
 		<form className="flex-center gap-6">
 			<span>{optimisticQuantity}</span>
 
-			<Button
-				variant="secondary"
-				size="sm"
+			<button
 				type="submit"
 				formAction={async () => {
 					setOptimisticQuantity(optimisticQuantity + 1);
@@ -31,7 +28,7 @@ export const IncrementProductQuantity = ({
 				}}
 			>
 				<Plus size="16" />
-			</Button>
+			</button>
 		</form>
 	);
 };

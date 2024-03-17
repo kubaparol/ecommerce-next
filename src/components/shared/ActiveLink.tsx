@@ -1,32 +1,31 @@
 "use client";
 
-import Link, { type LinkProps } from "next/link";
 import { type FC } from "react";
 import { usePathname } from "next/navigation";
-import { type Route } from "next";
+import { Button, Link, type ButtonProps } from "@nextui-org/react";
 import { cn } from "@/utils";
 
-interface ActiveLinkProps extends LinkProps<Route> {
+interface ActiveLinkProps extends ButtonProps {
 	label: string;
 	exact?: boolean;
 }
 
 export const ActiveLink: FC<ActiveLinkProps> = (props) => {
-	const { label, exact, href } = props;
+	const { label, exact, href, className, ...rest } = props;
 
 	const pathname = usePathname();
 
 	const isActive = exact ? pathname === href : pathname.startsWith(href as string);
 
 	return (
-		<Link
+		<Button
+			{...rest}
+			as={Link}
 			href={href}
-			className={cn(
-				isActive && "bg-secondary  pointer-events-none z-50 !cursor-default",
-				"p-medium-14 hover:bg-secondary rounded-lg px-4 py-2 transition",
-			)}
+			variant={isActive ? "solid" : "light"}
+			className={cn(className)}
 		>
 			{label}
-		</Link>
+		</Button>
 	);
 };

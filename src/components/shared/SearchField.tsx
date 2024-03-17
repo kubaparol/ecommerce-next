@@ -10,7 +10,6 @@ import {
 } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { type Route } from "next";
-import { Input } from "../ui/input";
 import { cn, removeKeysFromQuery } from "@/utils";
 import { ProjectUrls } from "@/constants";
 import { useDebouncedValue } from "@/hooks";
@@ -48,15 +47,15 @@ export const SearchField: FC<SearchFieldProps> = (props) => {
 	return (
 		<div
 			{...rest}
-			className={cn("flex-center bg-grey-50 w-full overflow-hidden rounded-full px-4", className)}
+			className={cn("flex-center w-full overflow-hidden rounded-full bg-grey-50 px-4", className)}
 		>
 			<Search size={21} />
 
-			<Input
+			<input
 				type="text"
 				placeholder={placeholder}
 				onChange={handleChange}
-				className="p-regular-14 bg-grey-50 placeholder:text-grey-500 border-0 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+				className="p-regular-14 border-0 bg-grey-50 outline-offset-0 placeholder:text-grey-500 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
 			/>
 		</div>
 	);

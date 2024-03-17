@@ -3,7 +3,6 @@
 import { Trash } from "lucide-react";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "../ui/button";
 import { removeItem } from "@/app/cart/actions";
 
 export const RemoveFromCart = ({ itemId }: { itemId: string }) => {
@@ -11,9 +10,7 @@ export const RemoveFromCart = ({ itemId }: { itemId: string }) => {
 	const router = useRouter();
 
 	return (
-		<Button
-			variant="destructive"
-			size="sm"
+		<button
 			disabled={isPending}
 			onClick={() => {
 				startTransition(async () => {
@@ -23,6 +20,6 @@ export const RemoveFromCart = ({ itemId }: { itemId: string }) => {
 			}}
 		>
 			<Trash size="16" />
-		</Button>
+		</button>
 	);
 };
