@@ -1,25 +1,28 @@
 import { Suspense, type FC } from "react";
 
-import { Button, Link, Navbar, NavbarContent } from "@nextui-org/react";
-import { Bird, ChevronDown, ShoppingCart } from "lucide-react";
+import { Link, Navbar, NavbarContent } from "@nextui-org/react";
+import { Bird, ChevronDown } from "lucide-react";
 
+import { Dropdown } from "../../Dropdown";
+import { Cart } from "../cart/Cart";
 import { ActiveLink } from "./ActiveLink";
-import { Dropdown } from "./Dropdown";
 import { MobileMenu } from "./MobileMenu";
 import { SearchField } from "./SearchField";
 import {
 	type CollectionsGetListQuery,
 	type CategoriesGetListQuery,
+	type CartGetByIdQuery,
 } from "@/services/api/graphql/configs/graphql";
 import { ProjectUrls } from "@/constants";
 
 export interface HeaderProps {
 	collections: CollectionsGetListQuery["collections"];
 	categories: CategoriesGetListQuery["categories"];
+	cart: CartGetByIdQuery["order"];
 }
 
 export const Header: FC<HeaderProps> = async (props) => {
-	const { collections, categories } = props;
+	const { collections, categories, cart } = props;
 
 	return (
 		<Navbar shouldHideOnScroll isBlurred maxWidth="2xl">
@@ -88,10 +91,7 @@ export const Header: FC<HeaderProps> = async (props) => {
 
 			<NavbarContent justify="end" className="gap-1">
 				<li>
-					<Button variant="light" aria-label="Koszyk" as={Link} href={ProjectUrls.cart}>
-						<ShoppingCart />
-						<span>1</span>
-					</Button>
+					<Cart cart={cart} />
 				</li>
 
 				<li>

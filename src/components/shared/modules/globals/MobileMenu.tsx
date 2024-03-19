@@ -1,11 +1,11 @@
 "use client";
 
-import { type FC, useEffect, useRef } from "react";
+import { type FC, useRef } from "react";
 import { useCycle, motion } from "framer-motion";
 import { Link } from "@nextui-org/react";
 import { ArrowRight } from "lucide-react";
 import { MenuToggle } from "./MenuToggle";
-import { useDimensions } from "@/hooks";
+import { useDimensions, useDisableBodyScroll } from "@/hooks";
 import {
 	type CategoriesGetListQuery,
 	type CollectionsGetListQuery,
@@ -24,13 +24,7 @@ export const MobileMenu: FC<MobileMenuProps> = (props) => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const { height } = useDimensions(containerRef);
 
-	useEffect(() => {
-		document.body.style.overflow = isOpen ? "hidden" : "";
-
-		return () => {
-			document.body.style.overflow = "";
-		};
-	}, [isOpen]);
+	useDisableBodyScroll(isOpen);
 
 	return (
 		<>

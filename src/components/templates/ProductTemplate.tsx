@@ -1,29 +1,33 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
 import { notFound } from "next/navigation";
-import { Card, Chip, Divider, Image } from "@nextui-org/react";
+import { Button, Card, Chip, Divider, Image } from "@nextui-org/react";
 import NextImage from "next/image";
+import Link from "next/link";
+import { Ruler } from "lucide-react";
 import { Breadcrumbs } from "../shared/Breadcrumbs";
-import { ProductDetails } from "../shared/ProductDetails";
+import { AddToCartForm } from "../shared/forms/AddToCartForm";
 import { type ProductGetByIdQuery } from "@/services/api/graphql/configs/graphql";
 import { formatPrice } from "@/utils";
+import { ProjectUrls } from "@/constants";
 
 export interface ProductTemplateProps extends ComponentPropsWithoutRef<"section"> {
 	product: ProductGetByIdQuery["product"];
-	onAddToCartClick: () => void;
+	onAddToCartClick: () => Promise<void>;
 }
 
 export const ProductTemplate: FC<ProductTemplateProps> = (props) => {
-	const { product } = props;
+	const { product, onAddToCartClick } = props;
 
 	if (!product) notFound();
 
 	return (
-		<section className="wrapper grid">
+		<section className="grid">
 			<header className="grid gap-6">
 				<Breadcrumbs
+					underline="hover"
 					items={[
 						{ href: "/", children: "Home" },
-						{ href: "/products", children: "Products" },
+						{ href: ProjectUrls.products, children: "Products" },
 						{ children: product.name },
 					]}
 				/>
@@ -80,13 +84,29 @@ export const ProductTemplate: FC<ProductTemplateProps> = (props) => {
 
 					<p className="text-2xl">{formatPrice(product.price)}</p>
 
-					<ProductDetails />
+					<Chip variant="dot" color="success" size="sm">
+						In stock - Order before 2pm for Express Delivery
+					</Chip>
+
+					<div className="mt-auto grid h-fit w-full gap-4">
+						<AddToCartForm onFormSubmit={onAddToCartClick} />
+
+						<Button
+							as={Link}
+							size="sm"
+							variant="light"
+							startContent={<Ruler size={20} />}
+							className="w-fit border"
+							href={ProjectUrls.sizeGuide}
+							isDisabled
+						>
+							View size guide
+						</Button>
+					</div>
 				</div>
 			</div>
 
 			<Divider className="my-12" />
-
-			<div></div>
 		</section>
 	);
 };
