@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import { type ReactNode } from "react";
 
 import "../styles/globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Providers } from "./providers";
 import { DefaultLayout } from "@/components/layouts/DefaultLayout";
 
@@ -19,14 +20,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children, modal }: { children: ReactNode; modal: ReactNode }) {
 	return (
-		<html lang="pl">
-			<body className={poppins.variable}>
-				<Providers>
-					<DefaultLayout>{children}</DefaultLayout>
-				</Providers>
+		<ClerkProvider>
+			<html lang="pl">
+				<body className={poppins.variable}>
+					<Providers>
+						<DefaultLayout>{children}</DefaultLayout>
+					</Providers>
 
-				{modal}
-			</body>
-		</html>
+					{modal}
+				</body>
+			</html>
+		</ClerkProvider>
 	);
 }

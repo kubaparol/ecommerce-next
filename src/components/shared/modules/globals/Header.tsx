@@ -3,6 +3,7 @@ import { Suspense, type FC } from "react";
 import { Link, Navbar, NavbarContent } from "@nextui-org/react";
 import { Bird, ChevronDown } from "lucide-react";
 
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Dropdown } from "../../Dropdown";
 import { Cart } from "../cart/Cart";
 import { ActiveLink } from "./ActiveLink";
@@ -92,6 +93,16 @@ export const Header: FC<HeaderProps> = async (props) => {
 			<NavbarContent justify="end" className="gap-1">
 				<li>
 					<Cart cart={cart} />
+				</li>
+
+				<li>
+					<SignedIn>
+						<UserButton />
+					</SignedIn>
+
+					<SignedOut>
+						<SignInButton />
+					</SignedOut>
 				</li>
 
 				<li>
