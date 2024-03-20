@@ -13,7 +13,7 @@ export default async function OrdersPage() {
 	const email = user?.emailAddresses[0]?.emailAddress;
 
 	if (!email) {
-		return <p>No email</p>;
+		return <p className="text-lg">No email</p>;
 	}
 
 	const { orders } = await graphqlFetcher({
