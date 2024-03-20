@@ -4,6 +4,7 @@ import {
 	Button,
 	Divider,
 	Image,
+	Link,
 	Modal,
 	ModalBody,
 	ModalContent,
@@ -142,13 +143,17 @@ export const Cart: FC<CartProps> = (props) => {
 
 					<Divider />
 
-					<ModalFooter className="flex-between bg-primary-50">
-						<p className="text-lg font-semibold">
-							<span className="font-normal">Total:</span> {formatPrice(totalPrice)}
-						</p>
+					{items.length > 0 && (
+						<ModalFooter className="flex-between bg-primary-50">
+							<p className="text-lg font-semibold">
+								<span className="font-normal">Total:</span> {formatPrice(totalPrice)}
+							</p>
 
-						<Button color="primary">Proceed to Checkout</Button>
-					</ModalFooter>
+							<Button as={Link} color="primary" href="/payment">
+								Proceed to Checkout
+							</Button>
+						</ModalFooter>
+					)}
 				</ModalContent>
 			</Modal>
 		</>

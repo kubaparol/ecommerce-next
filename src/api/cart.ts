@@ -9,6 +9,8 @@ import {
 	CartCreateDocument,
 	ProductGetByIdDocument,
 	CartAddProductDocument,
+	CartRemoveProductDocument,
+	CartSetProductQuantityDocument,
 } from "@/services/api/graphql/configs/graphql";
 import { graphqlFetcher } from "@/services";
 
@@ -125,3 +127,22 @@ export async function handlePaymentAction() {
 	cookies().set("cartId", "");
 	redirect(checkoutSession.url);
 }
+
+export const removeItem = async (itemId: string) => {
+	await graphqlFetcher({
+		query: CartRemoveProductDocument,
+		variables: {
+			itemId,
+		},
+	});
+};
+
+export const changeItemQuantity = async (itemId: string, quantity: number) => {
+	await graphqlFetcher({
+		query: CartSetProductQuantityDocument,
+		variables: {
+			itemId,
+			quantity,
+		},
+	});
+};

@@ -7,7 +7,7 @@ export const HeroTemplate: FC<HeroTemplateProps> = (props) => {
 	const {} = props;
 
 	return (
-		<section className="grid grid-cols-12 grid-rows-2 gap-2 px-8">
+		<section className="grid grid-cols-12 grid-rows-2 gap-2">
 			<Card className="col-span-12 max-h-[500px] sm:col-span-4">
 				<Image
 					removeWrapper

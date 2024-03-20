@@ -13,6 +13,8 @@
 	"dependencies": {
 		"@next/env": "^14.1.0",
 		"@nextui-org/react": "^2.2.10",
+		"@stripe/react-stripe-js": "^2.6.2",
+		"@stripe/stripe-js": "^3.0.10",
 		"@types/node": "20.11.19",
 		"@types/react": "18.2.57",
 		"@types/react-dom": "18.2.19",

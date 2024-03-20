@@ -4,7 +4,7 @@ import { MinusCircle, PlusCircle } from "lucide-react";
 import { type Dispatch, type FC, type SetStateAction, useTransition } from "react";
 import { Button, type ButtonProps } from "@nextui-org/react";
 import { type CartItem } from "./Cart";
-import { changeItemQuantity } from "@/app/cart/actions";
+import { changeItemQuantity } from "@/api/cart";
 
 export interface ChangeProductCartQuantityProps extends ButtonProps {
 	action: "increment" | "decrement";

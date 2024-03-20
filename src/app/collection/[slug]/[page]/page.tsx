@@ -4,18 +4,17 @@ import { graphqlFetcher } from "@/services";
 import {
 	CollectionGetBySlugDocument,
 	ProductsCollectionGetQuantityDocument,
-	ProductsGetQuantityDocument,
 } from "@/services/api/graphql/configs/graphql";
 import { calculateNumOfPages, calculateSkip } from "@/utils";
 import { CollectionTemplate } from "@/components/templates/CollectionTemplate";
 
-export async function generateStaticParams() {
-	const { productsConnection } = await graphqlFetcher({ query: ProductsGetQuantityDocument });
-	const count = productsConnection.aggregate.count;
-	const numOfPages = calculateNumOfPages(count, DATA_PER_PAGE);
-	const pages = Array.from({ length: numOfPages }, (_, i) => i + 1);
-	return pages.map((page) => ({ params: { page: page.toString() } }));
-}
+// export async function generateStaticParams() {
+// 	const { productsConnection } = await graphqlFetcher({ query: ProductsGetQuantityDocument });
+// 	const count = productsConnection.aggregate.count;
+// 	const numOfPages = calculateNumOfPages(count, DATA_PER_PAGE);
+// 	const pages = Array.from({ length: numOfPages }, (_, i) => i + 1);
+// 	return pages.map((page) => ({ params: { page: page.toString() } }));
+// }
 
 export default async function CategoryPage({ params }: { params: { page: string; slug: string } }) {
 	const page = Number(params.page);

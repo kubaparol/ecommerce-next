@@ -27,17 +27,19 @@ export async function POST(request: NextRequest): Promise<Response> {
 		process.env.STRIPE_WEBHOOK_SECRET,
 	);
 
-	switch (event.type) {
-		case "checkout.session.completed": {
-			event.data.object.metadata?.cartId;
-		}
-		case "checkout.session.async_payment_succeeded": {
-		}
-		case "checkout.session.async_payment_failed": {
-		}
-		case "checkout.session.expired": {
-		}
-	}
+	console.log(event);
+
+	// switch (event.type) {
+	// 	case "checkout.session.completed": {
+	// 		event.data.object.metadata?.cartId;
+	// 	}
+	// 	case "checkout.session.async_payment_succeeded": {
+	// 	}
+	// 	case "checkout.session.async_payment_failed": {
+	// 	}
+	// 	case "checkout.session.expired": {
+	// 	}
+	// }
 
 	return new Response(null, { status: 204 });
 }

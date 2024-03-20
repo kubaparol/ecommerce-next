@@ -4,7 +4,7 @@ import { Trash2 } from "lucide-react";
 import { type FC, useTransition, type SetStateAction, type Dispatch } from "react";
 import { Button, type ButtonProps } from "@nextui-org/react";
 import { type CartItem } from "./Cart";
-import { removeItem } from "@/app/cart/actions";
+import { removeItem } from "@/api/cart";
 
 export interface RemoveProductFromCartButtonProps extends ButtonProps {
 	itemId: string;
