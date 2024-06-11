@@ -11,7 +11,7 @@ export default authMiddleware({
 		"/collection/(.*)",
 		"/product/(.*)",
 		"/products",
-		"/search",
+		"/search/(.*)",
 		"/",
 	],
 });
