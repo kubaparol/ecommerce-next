@@ -116,8 +116,9 @@ export async function handlePaymentAction() {
 			quantity: item.quantity,
 		})),
 		mode: "payment",
-		success_url: "http://localhost:3000/cart/success?sessionId={CHECKOUT_SESSION_ID}",
-		cancel_url: "http://localhost:3000/cart/cancel",
+		success_url:
+			"https://ecommerce-next-peach.vercel.app/cart/success?sessionId={CHECKOUT_SESSION_ID}",
+		cancel_url: "https://ecommerce-next-peach.vercel.app/cart/cancel",
 	});
 
 	if (!checkoutSession.url) {
