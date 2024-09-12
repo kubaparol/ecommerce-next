@@ -90,12 +90,12 @@ export const Header: FC<HeaderProps> = async (props) => {
 				<SearchField />
 			</Suspense>
 
-			<NavbarContent justify="end" className="gap-1">
+			<NavbarContent justify="end" className="gap-3">
 				<li>
 					<Cart cart={cart} />
 				</li>
 
-				<li>
+				<li className="whitespace-nowrap">
 					<SignedIn>
 						<UserButton />
 					</SignedIn>

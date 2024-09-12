@@ -32,13 +32,15 @@ export const ChangeProductCartQuantity: FC<ChangeProductCartQuantityProps> = (pr
 				}
 
 				const newItems = [...prevItems];
-				const item = newItems[itemIndex];
 
-				if (!item) return prevItems;
+				const updatedItem = {
+					...newItems[itemIndex],
+					quantity: quantity,
+				};
 
-				item.quantity = quantity;
+				// @ts-expect-error fix this
+				newItems[itemIndex] = updatedItem;
 
-				console.log(newItems);
 				return newItems;
 			});
 		});

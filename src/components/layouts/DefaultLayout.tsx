@@ -20,7 +20,7 @@ export const DefaultLayout: FC<DefaultLayoutProps> = async (props) => {
 	return (
 		<>
 			<Header categories={categories} collections={collections} cart={cart} />
-			<main className="wrapper min-h-[calc(100vh-64px-57px)]">{children}</main>
+			<main className="wrapper flex min-h-[calc(100vh-64px-57px)] flex-col">{children}</main>
 			<Footer />
 		</>
 	);

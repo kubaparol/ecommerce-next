@@ -2,7 +2,9 @@
 
 import { Button } from "@nextui-org/react";
 import { ShoppingBag } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useTransition, type FC } from "react";
+import { ProjectUrls } from "@/constants";
 
 export interface AddToCartFormProps {
 	onFormSubmit: () => Promise<void>;
@@ -12,10 +14,17 @@ export const AddToCartForm: FC<AddToCartFormProps> = (props) => {
 	const { onFormSubmit } = props;
 
 	const [isPending, startTransition] = useTransition();
+	const router = useRouter();
 
-	const onSubmit = async () => {
+	const onSubmit = () => {
 		startTransition(async () => {
-			await onFormSubmit();
+			try {
+				await onFormSubmit();
+
+				router.push(ProjectUrls.cart);
+			} catch (error) {
+				console.error("Error during form submission:", error);
+			}
 		});
 	};
 

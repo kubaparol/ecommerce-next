@@ -36,5 +36,9 @@ export default async function PaymentPage() {
 		throw new Error("Missing client_secret");
 	}
 
-	return <StripeForm clientSecret={paymentIntent.client_secret} />;
+	return (
+		<div className="grid flex-1 place-items-center p-4">
+			<StripeForm clientSecret={paymentIntent.client_secret} />
+		</div>
+	);
 }

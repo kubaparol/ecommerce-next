@@ -1,9 +1,7 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
 import { notFound } from "next/navigation";
-import { Button, Card, Chip, Divider, Image } from "@nextui-org/react";
+import { Card, Chip, Divider, Image } from "@nextui-org/react";
 import NextImage from "next/image";
-import Link from "next/link";
-import { Ruler } from "lucide-react";
 import { Breadcrumbs } from "../shared/Breadcrumbs";
 import { AddToCartForm } from "../shared/forms/AddToCartForm";
 import { type ProductGetByIdQuery } from "@/services/api/graphql/configs/graphql";
@@ -91,7 +89,7 @@ export const ProductTemplate: FC<ProductTemplateProps> = (props) => {
 					<div className="mt-auto grid h-fit w-full gap-4">
 						<AddToCartForm onFormSubmit={onAddToCartClick} />
 
-						<Button
+						{/* <Button
 							as={Link}
 							size="sm"
 							variant="light"
@@ -101,7 +99,7 @@ export const ProductTemplate: FC<ProductTemplateProps> = (props) => {
 							isDisabled
 						>
 							View size guide
-						</Button>
+						</Button> */}
 					</div>
 				</div>
 			</div>

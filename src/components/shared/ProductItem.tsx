@@ -1,5 +1,5 @@
 import { type FC } from "react";
-import { ArrowRight, ShoppingCart } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button, Card, CardFooter, Image, Link } from "@nextui-org/react";
 import { ProjectUrls } from "@/constants";
 import { type ProductListItemFragment } from "@/services/api/graphql/configs/graphql";
@@ -38,12 +38,12 @@ export const ProductItem: FC<ProductItemProps> = (props) => {
 				<p className="text-sm text-black">{formatPrice(price)}</p>
 
 				<div className="mt-3 flex items-center justify-between gap-2">
-					<Button variant="flat" color="warning" endContent={<ShoppingCart />} isIconOnly />
+					{/* <Button variant="flat" color="warning" endContent={<ShoppingCart />} isIconOnly /> */}
 
 					<Button
 						as={Link}
 						href={ProjectUrls.product(id)}
-						className="group group-hover:translate-x-1"
+						className="group ml-auto group-hover:translate-x-1"
 						color="primary"
 					>
 						See more
